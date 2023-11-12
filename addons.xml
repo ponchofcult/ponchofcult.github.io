@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+  <addon
+  id="repository.test"
+  name="[COLOR red]Test[/COLOR] [COLOR black]Prueba[/COLOR] [COLORcyan]Repository[/COLOR]"
+  version="1.00"
+  provider-name="Ponchofcult">
+  <requires>
+    <import addon="xbmc.addon" version="12.0.0"/>
+  </requires>
+  <extension point="xbmc.addon.repository" name="[COLOR red]Test [COLOR red]Repository[/COLOR]">
+      <dir>
+      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/addons.xml</info>
+      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master</datadir>
+      <hashes>false</hashes>
+  </dir>
+  <dir minversion="19.9.9">
+      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus/addons.xml</info>
+      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus</datadir>
+      <hashes>false</hashes>
+  </dir>
+  <dir minversion="19.0.0">
+      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/matrix/addons.xml</info>
+      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/matrix/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/matrix</datadir>
+      <hashes>false</hashes>
+  </dir>
+  <dir minversion="17.0.0" maxversion="18.9.0">
+      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/leia/addons.xml</info>
+      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/leia/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/leia</datadir>
+      <hashes>false</hashes>
+  </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>repositorio de prueba</summary>
+    <description>repositorio oficial de pruebas nucleares patentadas por la unam</description>
+    <disclaimer></disclaimer>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+</addons>
