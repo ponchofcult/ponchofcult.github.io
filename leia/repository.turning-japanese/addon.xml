@@ -9,9 +9,9 @@
   </requires>
   <extension point="xbmc.addon.repository" name="[COLOR red]T[/COLOR][COLOR white]u[/COLOR][COLOR red]r[/COLOR][COLOR white]n[/COLOR][COLOR red]i[/COLOR][COLOR white]n[/COLOR][COLOR red]g[/COLOR][COLOR white]-[/COLOR][COLOR red]J[/COLOR][COLOR white]a[/COLOR][COLOR red]p[/COLOR][COLOR white]a[/COLOR][COLOR red]n[/COLOR][COLOR white]e[/COLOR][COLOR red]s[/COLOR][COLOR white]e[/COLOR] [COLOR red]R[/COLOR][COLOR white]e[/COLOR][COLOR red]p[/COLOR][COLOR white]o[/COLOR][COLOR red]s[/COLOR][COLOR white]i[/COLOR][COLOR red]t[/COLOR][COLOR white]o[/COLOR][COLOR red]r[/COLOR][COLOR white]y[/COLOR]">
       <dir>
-      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/_zip-files_/addons.xml</info>
-      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/_zip-files_/addons.xml.md5</checksum>
-      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/_zip-files_/</datadir>
+      <info compressed="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus/_zip-files_/addons.xml</info>
+      <checksum>https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus/_zip-files_/addons.xml.md5</checksum>
+      <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/nexus/_zip-files_/</datadir>
       <hashes>false</hashes>
   </dir>
   <dir minversion="19.9.9">
