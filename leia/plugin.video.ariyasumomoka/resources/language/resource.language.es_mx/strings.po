@@ -1,0 +1,82 @@
+# Kodi Media Center language file
+# Addon Name: Ariyasu Momoka
+# Addon id: plugin.video.ariyasumomoka
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/xbmc-addons/language/es_MX/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "Configuración"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "Habilitar/Deshabilitar depuración"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "Reinicio requerido"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "Si desea ver los títulos japoneses mostrados correctamente, reinicie Kodi ahora. Alternativamente, puede continuar usándolo y los cambios se aplicarán después de su próximo reinicio."
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "Skin no compatible"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "Por favor, reporte esto en https://github.com/ponchofcult/Turning-Japanese/issues para que podamos agregar soporte lo antes posible. ¡Gracias!"
+
+msgctxt "#30006"
+msgid "PHOTOGRAPHY"
+msgstr "FOTOGRAFÍA"
+
+msgctxt "#30007"
+msgid "MOVIE"
+msgstr "VIDEO"
+
+msgctxt "#30008"
+msgid "DISCOGRAPHY"
+msgstr "DISCOGRAFÍA"
+
+msgctxt "#30009"
+msgid "Unsupported Link"
+msgstr "Enlace no disponible"
+
+msgctxt "#30010"
+msgid "If you want to watch this video, please enter this URL in a web browser: "
+msgstr "Si deseas ver este video, ingresa esta URL en un navegador web:"
+
+msgctxt "#30011"
+msgid "Not Available Albums"
+msgstr "Álbumes no disponibles"
+
+msgctxt "#30012"
+msgid "Coming soon..."
+msgstr "Próximamente..."
+
+msgctxt "#30013"
+msgid "PLAY VIDEO "
+msgstr "REPRODUCIR VIDEO "
+
+msgctxt "#30014"
+msgid "No links found"
+msgstr "No se encontraron enlaces"
+
+msgctxt "#30015"
+msgid "Videos not available for this album, sorry."
+msgstr "Lo siento, no hay videos disponibles para este álbum."

@@ -1,0 +1,253 @@
+# Kodi Media Center language file
+# Addon Name: Aidoru!Online
+# Addon id: plugin.video.aidoru-online
+# Addon Provider: JPONShow
+msgid ""
+msgstr ""
+Project-Id-Version: XBMC Addons\n"
+Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+Last-Translator: Kodi Translation Team\n"
+Language-Team: Hindi (India) (http://www.transifex.com/projects/p/xbmc-addons/language/hi_IN/)\n"
+MIME-Version: 1.0\n"
+Content-Type: text/plain; charset=UTF-8\n"
+Content-Transfer-Encoding: 8bit\n"
+Language: hi_IN\n"
+Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "सेटिंग"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "डीबग सक्षम/अक्षम करें"
+
+msgctxt "#30002"
+msgid "Login in Aidoru-Online.me"
+msgstr "Aidoru-Online.me में लॉग इन करें"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "उपयोगकर्ता नाम"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "पासवर्ड"
+
+msgctxt "#30005"
+msgid "You are not logged in"
+msgstr "आप लॉग इन नहीं हैं"
+
+msgctxt "#30006"
+msgid "Please first enter your Username and Password in the addon settings."
+msgstr "अपने यूजरनेम और पासवर्ड को ऐडऑन सेटिंग्स में दर्ज करें।"
+
+msgctxt "#30007"
+msgid "You are logged in as"
+msgstr "आप इस रूप में लॉग इन हैं"
+
+msgctxt "#30008"
+msgid "Search"
+msgstr "खोज"
+
+msgctxt "#30009"
+msgid "Show All"
+msgstr "सभी दिखाएँ"
+
+msgctxt "#30010"
+msgid "BD/DVDISO"
+msgstr "BD/DVDISO"
+
+msgctxt "#30011"
+msgid "BD/DVD-RIP"
+msgstr "BD/DVD-RIP"
+
+msgctxt "#30012"
+msgid "TV"
+msgstr "टीवी"
+
+msgctxt "#30013"
+msgid "Performance"
+msgstr "प्रदर्शन"
+
+msgctxt "#30014"
+msgid "PV"
+msgstr "पीवी"
+
+msgctxt "#30015"
+msgid "Webstream"
+msgstr "वेबस्ट्रीम"
+
+msgctxt "#30016"
+msgid "Image"
+msgstr "छवि"
+
+msgctxt "#30017"
+msgid "Audio"
+msgstr "ऑडियो"
+
+msgctxt "#30018"
+msgid "Album"
+msgstr "एल्बम"
+
+msgctxt "#30019"
+msgid "Single"
+msgstr "एकल"
+
+msgctxt "#30020"
+msgid "Radio"
+msgstr "रेडियो"
+
+msgctxt "#30021"
+msgid "Misc"
+msgstr "विविध"
+
+msgctxt "#30022"
+msgid "Subtitled"
+msgstr "उपशीर्षित"
+
+msgctxt "#30023"
+msgid "Freeleech"
+msgstr "फ्रीलीच"
+
+msgctxt "#30024"
+msgid "Resurrected"
+msgstr "रिजरेक्टेड"
+
+msgctxt "#30025"
+msgid "Next"
+msgstr "अगला"
+
+msgctxt "#30026"
+msgid "Page Finder"
+msgstr "पृष्ठ खोजक"
+
+msgctxt "#30027"
+msgid "Cover"
+msgstr "कवर"
+
+msgctxt "#30028"
+msgid "Image"
+msgstr "छवि"
+
+msgctxt "#30029"
+msgid "Search All"
+msgstr "सभी खोजें"
+
+msgctxt "#30030"
+msgid "None"
+msgstr "कोई नहीं"
+
+msgctxt "#30031"
+msgid "Name"
+msgstr "नाम"
+
+msgctxt "#30032"
+msgid "Description"
+msgstr "विवरण"
+
+msgctxt "#30033"
+msgid "Name & Description"
+msgstr "नाम और विवरण"
+
+msgctxt "#30034"
+msgid "Active Transfers"
+msgstr "सक्रिय स्थानांतरण"
+
+msgctxt "#30035"
+msgid "Include Dead"
+msgstr "मृत समावेश"
+
+msgctxt "#30036"
+msgid "Only Dead"
+msgstr "केवल मृत"
+
+msgctxt "#30037"
+msgid "Need Seed"
+msgstr "बीज की आवश्यकता है"
+
+msgctxt "#30038"
+msgid "Select your favorite Agency"
+msgstr "अपनी पसंदीदा एजेंसी का चयन करें"
+
+msgctxt "#30039"
+msgid "What are you looking for?"
+msgstr "आप क्या ढूंढ रहे हैं?"
+
+msgctxt "#30040"
+msgid "Any other requirements?"
+msgstr "कोई अन्य आवश्यकताएं?"
+
+msgctxt "#30041"
+msgid "Something general or something specific?"
+msgstr "कुछ सामान्य या कुछ विशिष्ट?"
+
+msgctxt "#30042"
+msgid "In what condition do you want it?"
+msgstr "आप इसे किस स्थिति में चाहते हैं?"
+
+msgctxt "#30043"
+msgid "Put the page number where you want to go"
+msgstr "वहाँ जाना चाहते हैं उस पृष्ठ की संख्या डालें"
+
+msgctxt "#30044"
+msgid "Other"
+msgstr "अन्य"
+
+msgctxt "#30045"
+msgid "Recommended for Streams."
+msgstr "स्ट्रीम्स के लिए अनुशंसित।"
+
+msgctxt "#30046"
+msgid "Recommended for Downloads."
+msgstr "डाउनलोड के लिए अनुशंसित।"
+
+msgctxt "#30047"
+msgid "Select Torrent Manager."
+msgstr "टोरेंट मैनेजर का चयन करें।"
+
+msgctxt "#30048"
+msgid "Please Update and Restart."
+msgstr "कृपया अपडेट और पुनः आरंभ करें।"
+
+msgctxt "#30049"
+msgid "Update or reinstall"
+msgstr "अपडेट या पुनः स्थापित करें"
+
+msgctxt "#30050"
+msgid "and restart Kodi to avoid issues."
+msgstr "और समस्याओं से बचने के लिए कोडी को पुनः आरंभ करें।"
+
+msgctxt "#30051"
+msgid "Download Images from"
+msgstr "से छवियां डाउनलोड करें"
+
+msgctxt "#30052"
+msgid "Update with images from Torrent"
+msgstr "टोरेंट से छवियों के साथ अपडेट करें"
+
+msgctxt "#30053"
+msgid "Downloading Images from Torrent"
+msgstr "टोरेंट से छवियां डाउनलोड कर रहा है"
+
+msgctxt "#30054"
+msgid "Downloading Files..."
+msgstr "फाइलें डाउनलोड कर रहा है..."
+
+msgctxt "#30055"
+msgid "Saving Torrent Images"
+msgstr "टोरेंट छवियों को सहेज रहा है"
+
+msgctxt "#30056"
+msgid "Saving"
+msgstr "सहेज रहा है"
+
+msgctxt "#30057"
+msgid "items left"
+msgstr "आइटम बाकी हैं"
+
+msgctxt "#30058"
+msgid "Download Complete..."
+msgstr "डाउनलोड पूरा हुआ..."

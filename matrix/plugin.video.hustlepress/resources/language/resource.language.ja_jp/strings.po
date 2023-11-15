@@ -1,0 +1,69 @@
+# Kodi Media Center language file
+# Addon Name: Hustle Press!
+# Addon id: plugin.video.hustlepress
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/xbmc-addons/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "設定"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "デバッグの有効化/無効化"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "再起動が必要です"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "日本語のタイトルを正しく表示するには、Kodiを再起動してください。または、そのまま使用し、次回の再起動後に変更が反映されます。"
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "サポートされていないスキンです"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "できるだけ早くサポートを追加できるように、https://github.com/ponchofcult/Turning-Japanese/issues で報告してください。ありがとうございます！"
+
+msgctxt "#30006"
+msgid "HOME"
+msgstr "ホーム"
+
+msgctxt "#30007"
+msgid "GRAVURE"
+msgstr "グラビア"
+
+msgctxt "#30008"
+msgid "INTERVIEW"
+msgstr "インタビュー"
+
+msgctxt "#30009"
+msgid "FEATURE"
+msgstr "特集"
+
+msgctxt "#30010"
+msgid "COLUMN"
+msgstr "コラム"
+
+msgctxt "#30011"
+msgid "Video"
+msgstr "ビデオ"
+
+msgctxt "#30012"
+msgid "Image"
+msgstr "画像"

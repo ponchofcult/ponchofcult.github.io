@@ -1,0 +1,254 @@
+# Kodi Media Center language file
+# Addon Name: Aidoru!Online
+# Addon id: plugin.video.aidoru-online
+# Addon Provider: JPONShow
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: JAHR-MO-DA ST:MI+ZONE\n"
+"PO-Revision-Date: 2023-03-06 13:44-0600\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: German (http://www.transifex.com/projects/p/xbmc-addons/language/de/)\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "Debug aktivieren/deaktivieren"
+
+msgctxt "#30002"
+msgid "Login in Aidoru-Online.me"
+msgstr "Anmelden bei Aidoru-Online.me"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "Benutzername"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "Passwort"
+
+msgctxt "#30005"
+msgid "You are not logged in"
+msgstr "Sie sind nicht angemeldet"
+
+msgctxt "#30006"
+msgid "Please first enter your Username and Password in the addon settings."
+msgstr "Bitte geben Sie zuerst Ihren Benutzernamen und Ihr Passwort in den Addon-Einstellungen ein."
+
+msgctxt "#30007"
+msgid "You are logged in as"
+msgstr "Sie sind angemeldet als"
+
+msgctxt "#30008"
+msgid "Search"
+msgstr "Suche"
+
+msgctxt "#30009"
+msgid "Show All"
+msgstr "Alle anzeigen"
+
+msgctxt "#30010"
+msgid "BD/DVDISO"
+msgstr "BD/DVDISO"
+
+msgctxt "#30011"
+msgid "BD/DVD-RIP"
+msgstr "BD/DVD-RIP"
+
+msgctxt "#30012"
+msgid "TV"
+msgstr "TV."
+
+msgctxt "#30013"
+msgid "Performance"
+msgstr "Leistung"
+
+msgctxt "#30014"
+msgid "PV"
+msgstr "MV"
+
+msgctxt "#30015"
+msgid "Webstream"
+msgstr "Webstream"
+
+msgctxt "#30016"
+msgid "Image"
+msgstr "Bild"
+
+msgctxt "#30017"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#30018"
+msgid "Album"
+msgstr "Album"
+
+msgctxt "#30019"
+msgid "Single"
+msgstr "Single"
+
+msgctxt "#30020"
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt "#30021"
+msgid "Misc"
+msgstr "Sonstiges"
+
+msgctxt "#30022"
+msgid "Subtitled"
+msgstr "Untertitelt"
+
+msgctxt "#30023"
+msgid "Freeleech"
+msgstr "Freeleech"
+
+msgctxt "#30024"
+msgid "Resurrected"
+msgstr "Wiederbelebt"
+
+msgctxt "#30025"
+msgid "Next"
+msgstr "Weiter"
+
+msgctxt "#30026"
+msgid "Page Finder"
+msgstr "Seitenfinder"
+
+msgctxt "#30027"
+msgid "Cover"
+msgstr "Cover"
+
+msgctxt "#30028"
+msgid "Image"
+msgstr "Bild"
+
+msgctxt "#30029"
+msgid "Search All"
+msgstr "Alle suchen"
+
+msgctxt "#30030"
+msgid "None"
+msgstr "Keine"
+
+msgctxt "#30031"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "#30032"
+msgid "Description"
+msgstr "Beschreibung"
+
+msgctxt "#30033"
+msgid "Name & Description"
+msgstr "Name & Beschreibung"
+
+msgctxt "#30034"
+msgid "Active Transfers"
+msgstr "Aktive Übertragungen"
+
+msgctxt "#30035"
+msgid "Include Dead"
+msgstr "Tote einschließen"
+
+msgctxt "#30036"
+msgid "Only Dead"
+msgstr "Nur Tote"
+
+msgctxt "#30037"
+msgid "Need Seed"
+msgstr "Samen benötigt"
+
+msgctxt "#30038"
+msgid "Select your favorite Agency"
+msgstr "Wählen Sie Ihre Lieblingsagentur aus"
+
+msgctxt "#30039"
+msgid "What are you looking for?"
+msgstr "Wonach suchen Sie?"
+
+msgctxt "#30040"
+msgid "Any other requirements?"
+msgstr "Weitere Anforderungen?"
+
+msgctxt "#30041"
+msgid "Something general or something specific?"
+msgstr "Etwas Allgemeines oder etwas Spezifisches?"
+
+msgctxt "#30042"
+msgid "In what condition do you want it?"
+msgstr "In welchem Zustand wollen Sie es haben?"
+
+msgctxt "#30043"
+msgid "Put the page number where you want to go"
+msgstr "Geben Sie die Seitenzahl ein, zu der Sie gehen möchten"
+
+msgctxt "#30044"
+msgid "Other"
+msgstr "Andere"
+
+msgctxt "#30045" 
+msgid "Recommended for Streams." 
+msgstr "Empfohlen für Streams."
+
+msgctxt "#30046" 
+msgid "Recommended for Downloads." 
+msgstr "Empfohlen für Downloads."
+
+msgctxt "#30047" 
+msgid "Select Torrent Manager." 
+msgstr "Wählen Sie Torrent Manager aus."
+
+msgctxt "#30048" 
+msgid "Please Update and Restart." 
+msgstr "Bitte aktualisieren und neu starten."
+
+msgctxt "#30049" 
+msgid "Update or reinstall" 
+msgstr "Aktualisieren oder neu installieren"
+
+msgctxt "#30050" 
+msgid "and restart Kodi to avoid issues." 
+msgstr "und starten Sie Kodi neu, um Probleme zu vermeiden."
+
+msgctxt "#30051" 
+msgid "Download Images from" 
+msgstr "Bilder herunterladen von"
+
+msgctxt "#30052" 
+msgid "Update with images from Torrent" 
+msgstr "Aktualisieren mit Bildern von Torrent"
+
+msgctxt "#30053" 
+msgid "Downloading Images from Torrent" 
+msgstr "Bilder von Torrent herunterladen"
+
+msgctxt "#30054" 
+msgid "Downloading Files…" 
+msgstr "Dateien herunterladen…"
+
+msgctxt "#30055" 
+msgid "Saving Torrent Images" 
+msgstr "Torrent-Bilder speichern"
+
+msgctxt "#30056" 
+msgid "Saving" 
+msgstr "Speichern"
+
+msgctxt "#30057" 
+msgid "items left" 
+msgstr "Artikel übrig"
+
+msgctxt "#30058" 
+msgid "Download Complete…" 
+msgstr "Download abgeschlossen…"

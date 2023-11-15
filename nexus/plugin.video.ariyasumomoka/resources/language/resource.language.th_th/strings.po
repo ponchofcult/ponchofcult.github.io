@@ -1,0 +1,82 @@
+# Kodi Media Center language file
+# Addon Name: Ariyasu Momoka
+# Addon id: plugin.video.ariyasumomoka
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Thai (http://www.transifex.com/projects/p/xbmc-addons/language/th/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "เปิดใช้งาน/ปิดการใช้งานการแก้บั๊ก"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "ต้องการเริ่มต้นใหม่"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "หากคุณต้องการดูชื่อเรื่องภาษาญี่ปุ่นที่แสดงได้ถูกต้อง โปรดเริ่มต้น Kodi ใหม่ตอนนี้ หรือคุณสามารถใช้งานต่อได้ และการเปลี่ยนแปลงจะมีผลหลังจากที่คุณเริ่มต้นใหม่ครั้งต่อไป"
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "สกินที่ไม่รองรับ"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "โปรดรายงานสิ่งนี้ที่ https://github.com/ponchofcult/Turning-Japanese/issues เพื่อให้เราสามารถเพิ่มการสนับสนุนให้เร็วที่สุด ขอบคุณ!"
+
+msgctxt "#30006"
+msgid "PHOTOGRAPHY"
+msgstr "การถ่ายภาพ"
+
+msgctxt "#30007"
+msgid "MOVIE"
+msgstr "ภาพยนตร์"
+
+msgctxt "#30008"
+msgid "DISCOGRAPHY"
+msgstr "ดิสก์โครโนกราฟี"
+
+msgctxt "#30009"
+msgid "Unsupported Link"
+msgstr "ลิงก์ที่ไม่รองรับ"
+
+msgctxt "#30010"
+msgid "If you want to watch this video, please enter this URL in a web browser: "
+msgstr "หากคุณต้องการดูวิดีโอนี้ โปรดป้อน URL นี้ในเว็บเบราว์เซอร์:"
+
+msgctxt "#30011"
+msgid "Not Available Albums"
+msgstr "ไม่มีอัลบั้ม"
+
+msgctxt "#30012"
+msgid "Coming soon..."
+msgstr "เร็วๆ นี้..."
+
+msgctxt "#30013"
+msgid "PLAY VIDEO "
+msgstr "เล่นวีดีโอ "
+
+msgctxt "#30014"
+msgid "No links found"
+msgstr "ไม่พบลิงก์"
+
+msgctxt "#30015"
+msgid "Videos not available for this album, sorry."
+msgstr "ขออภัย ไม่มีวิดีโอสำหรับอัลบั้มนี้"

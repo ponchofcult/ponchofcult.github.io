@@ -1,0 +1,253 @@
+# Kodi Media Center language file
+# Addon Name: Aidoru!Online
+# Addon id: plugin.video.aidoru-online
+# Addon Provider: JPONShow
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: French (Canada) (http://www.transifex.com/projects/p/xbmc-addons/language/fr_CA/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_CA\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "Paramètres"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "Activer/Désactiver le débogage"
+
+msgctxt "#30002"
+msgid "Login in Aidoru-Online.me"
+msgstr "Connexion à Aidoru-Online.me"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "Mot de passe"
+
+msgctxt "#30005"
+msgid "You are not logged in"
+msgstr "Vous n'êtes pas connecté"
+
+msgctxt "#30006"
+msgid "Please first enter your Username and Password in the addon settings."
+msgstr "Veuillez d'abord entrer votre nom d'utilisateur et votre mot de passe dans les paramètres de l'add-on."
+
+msgctxt "#30007"
+msgid "You are logged in as"
+msgstr "Vous êtes connecté en tant que"
+
+msgctxt "#30008"
+msgid "Search"
+msgstr "Recherche"
+
+msgctxt "#30009"
+msgid "Show All"
+msgstr "Afficher tout"
+
+msgctxt "#30010"
+msgid "BD/DVDISO"
+msgstr "BD/DVDISO"
+
+msgctxt "#30011"
+msgid "BD/DVD-RIP"
+msgstr "BD/DVD-RIP"
+
+msgctxt "#30012"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30013"
+msgid "Performance"
+msgstr "Performance"
+
+msgctxt "#30014"
+msgid "PV"
+msgstr "PV"
+
+msgctxt "#30015"
+msgid "Webstream"
+msgstr "Webstream"
+
+msgctxt "#30016"
+msgid "Image"
+msgstr "Image"
+
+msgctxt "#30017"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#30018"
+msgid "Album"
+msgstr "Album"
+
+msgctxt "#30019"
+msgid "Single"
+msgstr "Single"
+
+msgctxt "#30020"
+msgid "Radio"
+msgstr "Radio"
+
+msgctxt "#30021"
+msgid "Misc"
+msgstr "Divers"
+
+msgctxt "#30022"
+msgid "Subtitled"
+msgstr "Sous-titré"
+
+msgctxt "#30023"
+msgid "Freeleech"
+msgstr "Freeleech"
+
+msgctxt "#30024"
+msgid "Resurrected"
+msgstr "Resuscité"
+
+msgctxt "#30025"
+msgid "Next"
+msgstr "Suivant"
+
+msgctxt "#30026"
+msgid "Page Finder"
+msgstr "Chercheur de pages"
+
+msgctxt "#30027"
+msgid "Cover"
+msgstr "Couverture"
+
+msgctxt "#30028"
+msgid "Image"
+msgstr "Image"
+
+msgctxt "#30029"
+msgid "Search All"
+msgstr "Tout rechercher"
+
+msgctxt "#30030"
+msgid "None"
+msgstr "Aucun"
+
+msgctxt "#30031"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "#30032"
+msgid "Description"
+msgstr "Description"
+
+msgctxt "#30033"
+msgid "Name & Description"
+msgstr "Nom et description"
+
+msgctxt "#30034"
+msgid "Active Transfers"
+msgstr "Transferts actifs"
+
+msgctxt "#30035"
+msgid "Include Dead"
+msgstr "Inclure les morts"
+
+msgctxt "#30036"
+msgid "Only Dead"
+msgstr "Seulement les morts"
+
+msgctxt "#30037"
+msgid "Need Seed"
+msgstr "Besoin de seed"
+
+msgctxt "#30038"
+msgid "Select your favorite Agency"
+msgstr "Sélectionnez votre agence préférée"
+
+msgctxt "#30039"
+msgid "What are you looking for?"
+msgstr "Que recherchez-vous?"
+
+msgctxt "#30040"
+msgid "Any other requirements?"
+msgstr "D'autres exigences?
+
+msgctxt "#30041"
+msgid "Something general or something specific?"
+msgstr "Quelque chose de général ou de spécifique?"
+
+msgctxt "#30042"
+msgid "In what condition do you want it?"
+msgstr "Dans quel état le voulez-vous?"
+
+msgctxt "#30043"
+msgid "Put the page number where you want to go"
+msgstr "Entrez le numéro de page où vous voulez aller"
+
+msgctxt "#30044"
+msgid "Other"
+msgstr "Autres"
+
+msgctxt "#30045"
+msgid "Recommended for Streams."
+msgstr "Recommandé pour les flux."
+
+msgctxt "#30046"
+msgid "Recommended for Downloads."
+msgstr "Recommandé pour les téléchargements."
+
+msgctxt "#30047"
+msgid "Select Torrent Manager."
+msgstr "Sélectionnez le gestionnaire de torrents."
+
+msgctxt "#30048"
+msgid "Please Update and Restart."
+msgstr "Veuillez mettre à jour et redémarrer."
+
+msgctxt "#30049"
+msgid "Update or reinstall"
+msgstr "Mettre à jour ou réinstaller"
+
+msgctxt "#30050"
+msgid "and restart Kodi to avoid issues."
+msgstr "et redémarrez Kodi pour éviter les problèmes."
+
+msgctxt "#30051"
+msgid "Download Images from"
+msgstr "Téléchargez des images à partir de"
+
+msgctxt "#30052"
+msgid "Update with images from Torrent"
+msgstr "Mettez à jour avec des images provenant de Torrent"
+
+msgctxt "#30053"
+msgid "Downloading Images from Torrent"
+msgstr "Téléchargement d'images à partir de Torrent"
+
+msgctxt "#30054"
+msgid "Downloading Files..."
+msgstr "Téléchargement des fichiers..."
+
+msgctxt "#30055"
+msgid "Saving Torrent Images"
+msgstr "Enregistrement des images de Torrent"
+
+msgctxt "#30056"
+msgid "Saving"
+msgstr "Enregistrement"
+
+msgctxt "#30057"
+msgid "items left"
+msgstr "articles restants"
+
+msgctxt "#30058"
+msgid "Download Complete..."
+msgstr "Téléchargement terminé..."

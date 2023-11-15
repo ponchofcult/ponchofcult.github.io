@@ -1,0 +1,82 @@
+# Kodi Media Center language file
+# Addon Name: Ariyasu Momoka
+# Addon id: plugin.video.ariyasumomoka
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/xbmc-addons/language/zh_TW/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "設定"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "開啟/關閉偵錯"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "需要重新啟動"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "若想要正確顯示日文標題，請現在重新啟動Kodi。或者您也可以繼續使用，並在下一次重新啟動時生效。"
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "不支援的佈景主題"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "請在 https://github.com/ponchofcult/Turning-Japanese/issues 上回報此問題，以便我們能盡快提供支援。謝謝！"
+
+msgctxt "#30006"
+msgid "PHOTOGRAPHY"
+msgstr "攝影"
+
+msgctxt "#30007"
+msgid "MOVIE"
+msgstr "電影"
+
+msgctxt "#30008"
+msgid "DISCOGRAPHY"
+msgstr "音樂作品"
+
+msgctxt "#30009"
+msgid "Unsupported Link"
+msgstr "不支援的連結"
+
+msgctxt "#30010"
+msgid "If you want to watch this video, please enter this URL in a web browser: "
+msgstr "如果您想觀看此影片，請在瀏覽器中輸入此網址："
+
+msgctxt "#30011"
+msgid "Not Available Albums"
+msgstr "專輯無法使用"
+
+msgctxt "#30012"
+msgid "Coming soon..."
+msgstr "即將推出..."
+
+msgctxt "#30013"
+msgid "PLAY VIDEO "
+msgstr "播放影片 "
+
+msgctxt "#30014"
+msgid "No links found"
+msgstr "没有找到链接"
+
+msgctxt "#30015"
+msgid "Videos not available for this album, sorry."
+msgstr "抱歉，此专辑没有可用的视频"

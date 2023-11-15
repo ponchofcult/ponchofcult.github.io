@@ -1,0 +1,13 @@
+<addon id="script.module.bencode" name="Bencode" version="4.0.1" provider-name="Ponchofcult">
+    <requires>
+        <!-- <import addon="xbmc.python" version="3.0.0"/> -->
+    </requires>
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Python library for encoding and decoding bencode data</summary>
+        <description lang="en">BencodePy is a Python 3 library for encoding and decoding bencode data. Bencode is a method of serializing data used by BitTorrent and other protocols.</description>
+        <platform>all</platform>
+        <license>MIT</license>
+        <source>https://github.com/ponchofcult/Turning-Japanese</source>
+    </extension>
+</addon>

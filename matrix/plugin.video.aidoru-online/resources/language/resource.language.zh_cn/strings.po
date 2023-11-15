@@ -1,0 +1,253 @@
+# Kodi Media Center language file
+# Addon Name: Aidoru!Online
+# Addon id: plugin.video.aidoru-online
+# Addon Provider: JPONShow
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Chinese (Simplified) (https://www.transifex.com/teamxbmc/xbmc-addons/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "设置"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "启用/禁用调试"
+
+msgctxt "#30002"
+msgid "Login in Aidoru-Online.me"
+msgstr "登录Aidoru-Online.me"
+
+msgctxt "#30003"
+msgid "Username"
+msgstr "用户名"
+
+msgctxt "#30004"
+msgid "Password"
+msgstr "密码"
+
+msgctxt "#30005"
+msgid "You are not logged in"
+msgstr "您尚未登录"
+
+msgctxt "#30006"
+msgid "Please first enter your Username and Password in the addon settings."
+msgstr "请先在插件设置中输入您的用户名和密码。"
+
+msgctxt "#30007"
+msgid "You are logged in as"
+msgstr "您已登录为"
+
+msgctxt "#30008"
+msgid "Search"
+msgstr "搜索"
+
+msgctxt "#30009"
+msgid "Show All"
+msgstr "显示全部"
+
+msgctxt "#30010"
+msgid "BD/DVDISO"
+msgstr "BD/DVDISO"
+
+msgctxt "#30011"
+msgid "BD/DVD-RIP"
+msgstr "BD/DVD-RIP"
+
+msgctxt "#30012"
+msgid "TV"
+msgstr "电视节目"
+
+msgctxt "#30013"
+msgid "Performance"
+msgstr "表演"
+
+msgctxt "#30014"
+msgid "PV"
+msgstr "宣传片"
+
+msgctxt "#30015"
+msgid "Webstream"
+msgstr "网络流媒体"
+
+msgctxt "#30016"
+msgid "Image"
+msgstr "图片"
+
+msgctxt "#30017"
+msgid "Audio"
+msgstr "音频"
+
+msgctxt "#30018"
+msgid "Album"
+msgstr "专辑"
+
+msgctxt "#30019"
+msgid "Single"
+msgstr "单曲"
+
+msgctxt "#30020"
+msgid "Radio"
+msgstr "广播"
+
+msgctxt "#30021"
+msgid "Misc"
+msgstr "其他"
+
+msgctxt "#30022"
+msgid "Subtitled"
+msgstr "字幕"
+
+msgctxt "#30023"
+msgid "Freeleech"
+msgstr "免费下载"
+
+msgctxt "#30024"
+msgid "Resurrected"
+msgstr "复活"
+
+msgctxt "#30025"
+msgid "Next"
+msgstr "下一页"
+
+msgctxt "#30026"
+msgid "Page Finder"
+msgstr "页面查找器"
+
+msgctxt "#30027"
+msgid "Cover"
+msgstr "封面"
+
+msgctxt "#30028"
+msgid "Image"
+msgstr "图片"
+
+msgctxt "#30029"
+msgid "Search All"
+msgstr "搜索全部"
+
+msgctxt "#30030"
+msgid "None"
+msgstr "无"
+
+msgctxt "#30031"
+msgid "Name"
+msgstr "名称"
+
+msgctxt "#30032"
+msgid "Description"
+msgstr "描述"
+
+msgctxt "#30033"
+msgid "Name & Description"
+msgstr "名称和描述"
+
+msgctxt "#30034"
+msgid "Active Transfers"
+msgstr "活跃传输"
+
+msgctxt "#30035"
+msgid "Include Dead"
+msgstr "包含已停止的"
+
+msgctxt "#30036"
+msgid "Only Dead"
+msgstr "仅限已停止的"
+
+msgctxt "#30037"
+msgid "Need Seed"
+msgstr "需要种子"
+
+msgctxt "#30038"
+msgid "Select your favorite Agency"
+msgstr "选择您最喜欢的机构"
+
+msgctxt "#30039"
+msgid "What are you looking for?"
+msgstr "您在寻找什么？"
+
+msgctxt "#30040"
+msgid "Any other requirements?"
+msgstr "有其他要求吗？"
+
+msgctxt "#30041"
+msgid "Something general or something specific?"
+msgstr "一般的还是具体的？"
+
+msgctxt "#30042"
+msgid "In what condition do you want it?"
+msgstr "您想要什么状态的？"
+
+msgctxt "#30043"
+msgid "Put the page number where you want to go"
+msgstr "输入您要前往的页面号码"
+
+msgctxt "#30044"
+msgid "Other"
+msgstr "其他的"
+
+msgctxt "#30045"
+msgid "Recommended for Streams."
+msgstr "推荐用于流媒体。"
+
+msgctxt "#30046"
+msgid "Recommended for Downloads."
+msgstr "推荐用于下载。"
+
+msgctxt "#30047"
+msgid "Select Torrent Manager."
+msgstr "选择 Torrent 管理器。"
+
+msgctxt "#30048"
+msgid "Please Update and Restart."
+msgstr "请更新并重新启动。"
+
+msgctxt "#30049"
+msgid "Update or reinstall"
+msgstr "更新或重新安装"
+
+msgctxt "#30050"
+msgid "and restart Kodi to avoid issues."
+msgstr "并重新启动 Kodi 以避免问题。"
+
+msgctxt "#30051"
+msgid "Download Images from"
+msgstr "从以下位置下载图片"
+
+msgctxt "#30052"
+msgid "Update with images from Torrent"
+msgstr "使用来自 Torrent 的图片进行更新"
+
+msgctxt "#30053"
+msgid "Downloading Images from Torrent"
+msgstr "正在从 Torrent 下载图片"
+
+msgctxt "#30054"
+msgid "Downloading Files..."
+msgstr "正在下载文件..."
+
+msgctxt "#30055"
+msgid "Saving Torrent Images"
+msgstr "保存 Torrent 图片"
+
+msgctxt "#30056"
+msgid "Saving"
+msgstr "保存中"
+
+msgctxt "#30057"
+msgid "items left"
+msgstr "剩余项目"
+
+msgctxt "#30058"
+msgid "Download Complete..."
+msgstr "下载完成..."

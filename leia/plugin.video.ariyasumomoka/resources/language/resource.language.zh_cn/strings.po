@@ -1,0 +1,82 @@
+# Kodi Media Center language file
+# Addon Name: Ariyasu Momoka
+# Addon id: plugin.video.ariyasumomoka
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: Chinese (Simplified) (https://www.transifex.com/teamxbmc/xbmc-addons/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "设置"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "启用/禁用调试"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "需要重新启动"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "如果你想正确显示日文标题，请现在重新启动 Kodi。或者，你可以继续使用它，更改将在下次重新启动后生效。"
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "不支持的皮肤"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "请在 https://github.com/ponchofcult/Turning-Japanese/issues 上报告此问题，以便我们尽快添加支持。谢谢！"
+
+msgctxt "#30006"
+msgid "PHOTOGRAPHY"
+msgstr "摄影"
+
+msgctxt "#30007"
+msgid "MOVIE"
+msgstr "电影"
+
+msgctxt "#30008"
+msgid "DISCOGRAPHY"
+msgstr "唱片目录"
+
+msgctxt "#30009"
+msgid "Unsupported Link"
+msgstr "不支持的链接"
+
+msgctxt "#30010"
+msgid "If you want to watch this video, please enter this URL in a web browser: "
+msgstr "如果你想观看此视频，请在 Web 浏览器中输入此 URL："
+
+msgctxt "#30011"
+msgid "Not Available Albums"
+msgstr "不可用的专辑"
+
+msgctxt "#30012"
+msgid "Coming soon..."
+msgstr "即将上线..."
+
+msgctxt "#30013"
+msgid "PLAY VIDEO "
+msgstr "播放视频 "
+
+msgctxt "#30014"
+msgid "No links found"
+msgstr "没有找到链接"
+
+msgctxt "#30015"
+msgid "Videos not available for this album, sorry."
+msgstr "抱歉，此专辑没有可用的视频"

@@ -1,0 +1,81 @@
+# Kodi Media Center language file
+# Addon Name: Ariyasu Momoka
+# Addon id: plugin.video.ariyasumomoka
+# Addon Provider: Ponchofcult
+msgid ""
+msgstr ""
+Project-Id-Version: XBMC Addons\n"
+Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+Last-Translator: Kodi Translation Team\n"
+Language-Team: Hindi (India) (http://www.transifex.com/projects/p/xbmc-addons/language/hi_IN/)\n"
+MIME-Version: 1.0\n"
+Content-Type: text/plain; charset=UTF-8\n"
+Content-Transfer-Encoding: 8bit\n"
+Language: hi_IN\n"
+Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Settings"
+msgstr "सेटिंग"
+
+msgctxt "#30001"
+msgid "Enable/Disable Debug"
+msgstr "डीबग सक्षम/अक्षम करें"
+
+msgctxt "#30002"
+msgid "Restart Required"
+msgstr "पुन: आरंभ की आवश्यकता है"
+
+msgctxt "#30003"
+msgid "If you want to see Japanese titles displayed correctly, please restart Kodi now. Alternatively, you can continue using it and the changes will take effect after your next restart."
+msgstr "यदि आप जापानी शीर्षकों को सही ढंग से देखना चाहते हैं, तो कृपया कोडी को अब पुन: आरंभ करें। वैकल्पिक रूप से, आप इसका उपयोग जारी रख सकते हैं और परिवर्तन अगले पुनरारंभ के बाद प्रभावी होंगे।"
+
+msgctxt "#30004"
+msgid "Unsupported Skin"
+msgstr "असमर्थित स्किन"
+
+msgctxt "#30005"
+msgid "Please report this on https://github.com/ponchofcult/Turning-Japanese/issues so we can add support as soon as possible. Thank you!"
+msgstr "कृपया https://github.com/ponchofcult/Turning-Japanese/issues पर इसकी रिपोर्ट करें ताकि हम जल्द से जल्द समर्थन जोड़ सकें। धन्यवाद!"
+
+msgctxt "#30006"
+msgid "PHOTOGRAPHY"
+msgstr "फोटोग्राफी"
+
+msgctxt "#30007"
+msgid "MOVIE"
+msgstr "फिल्म"
+
+msgctxt "#30008"
+msgid "DISCOGRAPHY"
+msgstr "डिस्कोग्राफी"
+
+msgctxt "#30009"
+msgid "Unsupported Link"
+msgstr "असमर्थित लिंक"
+
+msgctxt "#30010"
+msgid "If you want to watch this video, please enter this URL in a web browser: "
+msgstr "यदि आप इस वीडियो को देखना चाहते हैं, तो कृपया इस URL को वेब ब्राउज़र में दर्ज करें:"
+
+msgctxt "#30011"
+msgid "Not Available Albums"
+msgstr "उपलब्ध एल्बम नहीं"
+
+msgctxt "#30012"
+msgid "Coming soon..."
+msgstr "जल्द आ रहा है..."
+
+msgctxt "#30013"
+msgid "PLAY VIDEO "
+msgstr "वीडियो चलाएं "
+
+msgctxt "#30014"
+msgid "No links found"
+msgstr "कोई लिंक नहीं मिला"
+
+msgctxt "#30015"
+msgid "Videos not available for this album, sorry."
+msgstr "इस एल्बम के लिए वीडियो उपलब्ध नहीं हैं, माफ़ कीजिए"

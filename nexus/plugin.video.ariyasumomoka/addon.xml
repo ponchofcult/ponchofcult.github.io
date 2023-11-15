@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.ariyasumomoka" name="Ariyasu Momoka" version="0.1.0" provider-name="Ponchofcult">
+    <requires>
+        <!-- <import addon="xbmc.python" version="3.0.0"/> -->
+        <import addon="script.module.routing" version="0.2.0"/>
+		<import addon="script.module.codequick" version="1.0"/>
+		<import addon="script.module.future" version="0.17.1"/>
+		<import addon="script.module.resolveurl" version="5.1.00"/>
+        <import addon="plugin.video.youtube" version="6.8.18"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>image video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">Shows the content of Ariyasu Momoka Official Website =)</summary>
+        <description lang="en_GB">Shows the content of Ariyasu Momoka Official Website =)</description>
+        <language></language>
+        <platform>all</platform>
+        <license>MIT</license>
+        <forum></forum>
+        <website>https://github.com/ponchofcult</website>
+        <email>ponchofcult@outlook.com</email>
+        <source></source>
+        <news></news>
+        <disclaimer></disclaimer>
+        <assets>
+            <icon>resources/icon.png</icon>
+            <fanart>resources/fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>

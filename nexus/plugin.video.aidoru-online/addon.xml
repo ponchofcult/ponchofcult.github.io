@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.1" provider-name="JPONShow">
+    <requires>
+        <!-- <import addon="xbmc.python" version="3.0.0"/> -->
+        <import addon="script.module.routing" version="0.2.0"/>
+        <import addon="script.module.codequick" version="1.0"/>
+        <import addon="script.module.future" version="0.17.1"/>
+		<import addon="script.module.beautifulsoup4" version="4.9.3"/>
+        <import addon="script.module.requests" version="2.22.0"/>
+		<import addon="script.module.bencode" version="4.0.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="main.py">
+        <provides>audio image video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">It brings access to the content of the aidoru-online.me website, we are not responsible for the content hosted on this website, nor do we have any relationship with it, the content is uploaded by the users of this website.</summary>
+        <description lang="en_GB"></description>
+        <language></language>
+        <platform>all</platform>
+        <license>MIT</license>
+        <forum></forum>
+        <source></source>
+        <news></news>
+        <disclaimer>This addon uses the bencodepy, whose author are Dean Gardiner. The author of this addon is not responsible for the content he provides or for the use given to it.</disclaimer>
+        <assets>
+            <icon>resources/icon.png</icon>
+            <fanart>resources/fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>

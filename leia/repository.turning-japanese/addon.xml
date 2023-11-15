@@ -32,6 +32,11 @@
       <datadir zip="true">https://raw.github.com/ponchofcult/turning-japanese.github.io/master/leia/_zip-files_/</datadir>
       <hashes>false</hashes>
   </dir>
+  <dir>
+    <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+    <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+  </dir>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>Japanese Culture Addon Repository.</summary>
