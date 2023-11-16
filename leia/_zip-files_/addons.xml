@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.2" provider-name="JPONShow">
+<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.3" provider-name="JPONShow">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -9,6 +9,7 @@
 		<import addon="script.module.beautifulsoup4" version="4.9.3"/>
         <import addon="script.module.requests" version="2.22.0"/>
 		<import addon="script.module.bencode" version="4.0.0"/>
+		<import addon="script.module.pil" version="5.1.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
         <provides>audio image video</provides>
