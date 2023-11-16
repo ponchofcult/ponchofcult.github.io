@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.1" provider-name="JPONShow">
+<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.2" provider-name="JPONShow">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -24,13 +24,13 @@
         <news></news>
         <disclaimer>This addon uses the bencodepy, whose author are Dean Gardiner. The author of this addon is not responsible for the content he provides or for the use given to it.</disclaimer>
         <assets>
-            <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
 </addon>
 
-<addon id="plugin.video.ariyasumomoka" name="Ariyasu Momoka" version="0.1.0" provider-name="Ponchofcult">
+<addon id="plugin.video.ariyasumomoka" name="Ariyasu Momoka" version="0.1.1" provider-name="Ponchofcult">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -55,13 +55,13 @@
         <news></news>
         <disclaimer></disclaimer>
         <assets>
-            <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
 </addon>
 
-<addon id="plugin.video.hustlepress" name="Hustle Press!" version="0.0.7" provider-name="Ponchofcult">
+<addon id="plugin.video.hustlepress" name="Hustle Press!" version="0.0.8" provider-name="Ponchofcult">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -87,8 +87,8 @@
         <news></news>
         <disclaimer></disclaimer>
         <assets>
-            <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
 </addon>
