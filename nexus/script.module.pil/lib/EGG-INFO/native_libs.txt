@@ -1,0 +1,5 @@
+PIL/_imaging.cpython-311-x86_64-linux-gnu.so
+PIL/_imagingft.cpython-311-x86_64-linux-gnu.so
+PIL/_imagingmath.cpython-311-x86_64-linux-gnu.so
+PIL/_imagingmorph.cpython-311-x86_64-linux-gnu.so
+PIL/_imagingtk.cpython-311-x86_64-linux-gnu.so
