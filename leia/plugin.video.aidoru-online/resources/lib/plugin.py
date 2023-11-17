@@ -20,44 +20,18 @@ from time import sleep as wait
 from PIL import Image
 import shutil
 
-
-# addonID = xbmcaddon.Addon().getAddonInfo('id')
-# repoContainer = xbmcvfs.translatePath('special://home/addons/{}/resources/lib/{}')
-# path = xbmcvfs.translatePath('special://home/addons/{}')
-# torrent_addons = ["Elementum: {}".format(STR(30045)), "Torrest: {}".format(STR(30046))]
-
-# torrent_player = tools.getSetting("torrent_player")
-# if not torrent_player.strip():
-#     selection = xbmcgui.Dialog().select(STR(30047), torrent_addons, useDetails=True)
-    
-#     if selection == 0:
-#         repo, plugin = "repository.thewarehouse", "plugin.video.elementum"
-#     elif selection == 1:
-#         repo, plugin = "repository.github", "plugin.video.torrest"
-#     else:
-#         sys.exit()
-    
-#     xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection])
-#     repoPath, repo_origin = path.format(repo), repoContainer.format(addonID, repo)
-#     pluginPath, plugin_origin = path.format(plugin), repoContainer.format(addonID, plugin)
-#     items = [repo, plugin]
-#     for p in items:
-#         p_path = path.format(p)
-#         p_origin = repoContainer.format(addonID, p)
-#         if not xbmcvfs.exists(p_path):
-#             try:
-#                 shutil.copytree(p_origin, p_path)
-#                 xbmc.executebuiltin('UpdateLocalAddons')
-#                 xbmc.executebuiltin('EnableAddon({})'.format(p))
-#                 xbmcgui.Dialog().ok(STR(30048), "{} {}({}) {}".format(STR(30049),items[1].replace("plugin.video.","").upper(),items[0].replace("thewarehouse","elementum"),STR(30050)))
-#                 xbmc.executebuiltin('DialogClose(all,true)')
-#                 xbmc.executebuiltin('InstallAddon({})'.format(items[1]))
-#             except Exception as e:
-#                 logger.debug(e)
-#         else:
-#             pass
-
 STR = tools.getString
+
+addonID = xbmcaddon.Addon().getAddonInfo('id')
+repoContainer = xbmcvfs.translatePath('special://home/addons/{}/resources/lib/{}')
+path = xbmcvfs.translatePath('special://home/addons/{}')
+torrent_addons = ["Elementum","Torrest"]
+torrent_addons_selection = ["Elementum: {}".format(STR(30045)), "Torrest: {}".format(STR(30046))]
+
+torrent_player = tools.getSetting("torrent_player")
+if not torrent_player.strip():
+    selection = xbmcgui.Dialog().select(STR(30047), torrent_addons_selection, useDetails=True)
+    xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection])
 
 if tools.getSetting("torrent_player") == "Elementum":
     try:

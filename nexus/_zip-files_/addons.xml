@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.5" provider-name="JPONShow">
+<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.6" provider-name="JPONShow">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -10,8 +10,8 @@
         <import addon="script.module.requests" version="2.22.0"/>
 		<import addon="script.module.bencode" version="4.0.0"/>
 		<import addon="script.module.pil" version="5.1.0"/>
-		<!-- import addon="plugin.video.elementum" version="0.1.98"/>
-		<import addon="plugin.video.torrest" version="0.0.10"/> -->
+		<import addon="plugin.video.elementum" version="0.1.98"/>
+		<import addon="plugin.video.torrest" version="0.0.10"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
         <provides>audio image video</provides>
@@ -141,7 +141,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.torrest" name="Torrest" provider-name="i96751414" version="0.0.10">
+<addon id="plugin.video.torrest" name="Torrest" provider-name="i96751414" version="0.0.16">
     <requires>
         <!--<import addon="xbmc.python" version="3.0.0"/>-->
         <import addon="script.module.requests" version="2.22.0"/>
@@ -158,6 +158,9 @@
         <summary lang="en">Torrest on Kodi</summary>
         <description lang="en">Torrest is a service with a rest API which allows torrent streaming.</description>
         <news>
+- Update for torrest 0.0.4 (https://github.com/i96751414/torrest-cpp/releases/tag/v0.0.4)
+- Allow forcing torrest binary
+- Allow custom user-agent definitions
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -226,43 +229,6 @@
         <assets>
             <icon>icon.png</icon>
         </assets>
-    </extension>
-</addon>
-
-<addon id="repository.thewarehouse"
-       name="The WareHouse Repository"
-       version="22.6.8"
-       provider-name="[COLORpurple]â€¢ [COLORorchid]Tech [COLORdarkorchid]E [COLORplum]Coyote [COLORpurple]â€¢[/COLOR]">
-    <extension point="xbmc.addon.repository" name="The WareHouse Repository">
-        <dir minversion="18.9.0">
-            <info compressed="false">https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/matrix/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/matrix/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/matrix/zips/</datadir>
-        </dir>
-        <dir minversion="18.0" maxversion="18.9.0">
-            <info compressed="false">https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/leia/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/leia/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/warehousecrates/TheWareHouse/main/leia/zips/</datadir>
-        </dir>
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/jenaddon/repository.jenrepo/master/zips/</datadir>
-		</dir>
-        <dir><!--ResolveUrl-->
-            <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>The WareHouse Repository</summary>
-        <description>The WareHouse Repository</description>
-        <platform>all</platform>
-    <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-    </assets>
     </extension>
 </addon>
 

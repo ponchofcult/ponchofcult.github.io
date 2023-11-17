@@ -36,7 +36,7 @@ def downloadFile(file_name,subdirectory_name,file_content):
         logger.debug("Directory '%s' created" %directory)
     except OSError as error:
         logger.debug(error)
-    file_path = xbmcvfs.translatePath("{}\{}\{}\{}".format(profile, directory, archive, name))
+    file_path = xbmcvfs.translatePath(os.path.join(profile, directory, archive, name))
     with open(file_path, 'wb') as file:
         file.write(file_content)
         file.close()
