@@ -141,38 +141,6 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.torrest" name="Torrest" provider-name="i96751414" version="0.0.16">
-    <requires>
-        <!--<import addon="xbmc.python" version="3.0.0"/>-->
-        <import addon="script.module.requests" version="2.22.0"/>
-        <import addon="script.module.routing" version="0.2.3"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="navigation.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.service" library="service.py"/>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <license>See https://github.com/i96751414/plugin.video.torrest/blob/master/LICENSE</license>
-        <source>https://github.com/i96751414/plugin.video.torrest</source>
-        <summary lang="en">Torrest on Kodi</summary>
-        <description lang="en">Torrest is a service with a rest API which allows torrent streaming.</description>
-        <news>
-- Update for torrest 0.0.4 (https://github.com/i96751414/torrest-cpp/releases/tag/v0.0.4)
-- Allow forcing torrest binary
-- Allow custom user-agent definitions
-        </news>
-        <assets>
-            <icon>icon.png</icon>
-            <screenshot>resources/screenshots/screenshot-1.jpg</screenshot>
-            <screenshot>resources/screenshots/screenshot-2.jpg</screenshot>
-            <screenshot>resources/screenshots/screenshot-3.jpg</screenshot>
-            <screenshot>resources/screenshots/screenshot-4.jpg</screenshot>
-        </assets>
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-    </extension>
-</addon>
-
 <addon id="repository.elementumorg" name="ElementumOrg repository" provider-name="elementumorg" version="0.0.2">
     <requires>
     </requires>
@@ -235,7 +203,7 @@
   <addon
   id="repository.turning-japanese"
   name="[COLOR red]T[/COLOR][COLOR white]u[/COLOR][COLOR red]r[/COLOR][COLOR white]n[/COLOR][COLOR red]i[/COLOR][COLOR white]n[/COLOR][COLOR red]g[/COLOR][COLOR white]-[/COLOR][COLOR red]J[/COLOR][COLOR white]a[/COLOR][COLOR red]p[/COLOR][COLOR white]a[/COLOR][COLOR red]n[/COLOR][COLOR white]e[/COLOR][COLOR red]s[/COLOR][COLOR white]e[/COLOR] [COLOR red]R[/COLOR][COLOR white]e[/COLOR][COLOR red]p[/COLOR][COLOR white]o[/COLOR][COLOR red]s[/COLOR][COLOR white]i[/COLOR][COLOR red]t[/COLOR][COLOR white]o[/COLOR][COLOR red]r[/COLOR][COLOR white]y[/COLOR]"
-  version="2.0.0"
+  version="2.0.1"
   provider-name="Ponchofcult">
   <requires>
     <import addon="xbmc.addon" version="12.0.0"/>
@@ -269,6 +237,11 @@
     <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
     <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
     <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+  </dir>
+  <dir>
+    <info>http://127.0.0.1:61234/addons.xml</info>
+    <checksum>http://127.0.0.1:61234/addons.xml.md5</checksum>
+    <datadir>http://127.0.0.1:61234/</datadir>
   </dir>
   </extension>
   <extension point="xbmc.addon.metadata">
