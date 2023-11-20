@@ -157,7 +157,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.bencode" name="Bencode" version="4.0.1" provider-name="Ponchofcult">
+<addon id="script.module.bencode" name="Bencode" version="4.0.2" provider-name="Ponchofcult">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
     </requires>
@@ -168,6 +168,9 @@
         <platform>all</platform>
         <license>MIT</license>
         <source>https://github.com/ponchofcult/Turning-Japanese</source>
+		<assets>
+		    <icon>icon.png</icon>
+        </assets>
     </extension>
 </addon>
 
