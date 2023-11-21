@@ -1,4 +1,4 @@
-<addon id="script.module.bencode" name="Bencode" version="4.0.2" provider-name="Ponchofcult">
+<addon id="script.module.bencode" name="Bencode" version="4.0.3" provider-name="Ponchofcult">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
     </requires>
