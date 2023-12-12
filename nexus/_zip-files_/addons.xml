@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.0.6" provider-name="JPONShow">
+<addon id="plugin.video.aidoru-online" name="Aidoru!Online" version="2.9.0" provider-name="JPonCho">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>
@@ -10,22 +10,53 @@
         <import addon="script.module.requests" version="2.22.0"/>
 		<import addon="script.module.bencode" version="4.0.0"/>
 		<import addon="script.module.pil" version="5.1.0"/>
-		<import addon="plugin.video.elementum" version="0.1.98"/>
-		<import addon="plugin.video.torrest" version="0.0.10"/>
+		<!--import addon="plugin.video.elementum" version="0.1.98"/-->
+		<!--import addon="plugin.video.torrest" version="0.0.10"/-->
     </requires>
     <extension point="xbmc.python.pluginsource" library="main.py">
         <provides>audio image video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">It brings access to the content of the aidoru-online.me website, we are not responsible for the content hosted on this website, nor do we have any relationship with it, the content is uploaded by the users of this website.</summary>
-        <description lang="en_GB"></description>
-        <language></language>
+        <summary lang="de">Es bringt Zugang zu den J-Pop-Idolen Inhalten der Website aidoru-online.me, wie Musikvideos bis hin zu Performances, die für DVDs, Singles, Alben, Fotos, Untertitel und vieles mehr werfen…</summary>
+        <summary lang="en">It brings access to the jpop idols content of the aidoru-online.me website, such as music videos until performances, throwing for DVDs, singles, albums, photos, subtitles and much more…</summary>
+        <summary lang="es">Trae acceso al contenido de ídolos jpop del sitio web aidoru-online.me, como videos musicales hasta actuaciones, pasando por DVD, sencillos, álbumes, fotos, subtítulos y mucho más…</summary>
+        <summary lang="fr">Il apporte l'accès au contenu des idoles jpop du site web aidoru-online.me, comme des vidéos musicales jusqu'aux performances, en lançant pour des DVD, des singles, des albums, des photos, des sous-titres et bien plus encore…</summary>
+        <summary lang="hi">यह aidoru-online.me वेबसाइट के जेपॉप आइडल्स की सामग्री तक पहुंच लाता है, जैसे संगीत वीडियो से लेकर प्रदर्शनों तक, डीवीडी, सिंगल, एल्बम, फोटो, उपशीर्षक और बहुत कुछ के लिए फेंकना…</summary>
+        <summary lang="ja">aidoru-online.meのウェブサイトのjpopアイドルのコンテンツにアクセスできるようになります。音楽ビデオからパフォーマンスまで、DVD、シングル、アルバム、写真、字幕などを投げることができます…</summary>
+        <summary lang="ko">aidoru-online.me 웹사이트의 jpop 아이돌 콘텐츠에 액세스할 수 있습니다. 음악 비디오부터 공연까지, DVD, 싱글, 앨범, 사진, 자막 등을 던질 수 있습니다…</summary>
+        <summary lang="pt">Traz acesso ao conteúdo de ídolos jpop do site aidoru-online.me, como vídeos musicais até performances, lançando para DVDs, singles, álbuns, fotos, legendas e muito mais…</summary>
+        <summary lang="ru">Он дает доступ к содержанию jpop-идолов на сайте aidoru-online.me, такому как музыкальные видео до выступлений, бросая для DVD, синглов, альбомов, фотографий, субтитров и многого другого…</summary>
+        <summary lang="th">มันนำเสนอการเข้าถึงเนื้อหาไอดอล jpop ของเว็บไซต์ aidoru-online.me เช่นวิดีโอเพลงจนถึงการแสดง โยนสำหรับ DVD, ซิงเกิล, อัลบั้ม, รูปภาพ, คำบรรยายและอีกมากมาย…</summary>
+        <summary lang="zh">它带来了对aidoru-online.me网站的jpop偶像内容的访问, 比如音乐视频到表演, 为DVD, 单曲, 专辑, 照片, 字幕和更多东西投掷…</summary>
+
+        <description lang="de">Es bringt Zugang zu den Inhalten der Website aidoru-online.me, wie Musikvideos bis hin zu Performances, die für DVDs, Singles, Alben, Fotos, Untertitel und vieles mehr werfen… Der Autor dieses Addons ist nicht für den Inhalt verantwortlich, der auf dieser Website gehostet wird, noch haben wir eine Beziehung zu ihm, der Inhalt wird von den Benutzern der Website aidoru-online.me hochgeladen.</description>
+        <description lang="en">It brings access to the content of the aidoru-online.me website, such as music videos until performances, throwing for DVDs, singles, albums, photos, subtitles and much more… The author of this addon is not responsible for the content hosted on this website, nor do we have any relationship with it, the content is uploaded by the users of the aidoru-online.me website.</description>
+        <description lang="es">Trae acceso al contenido del sitio web aidoru-online.me, como videos musicales hasta actuaciones, pasando por DVD, sencillos, álbumes, fotos, subtítulos y mucho más… El autor de este addon no es responsable por el contenido alojado en este sitio web, ni tenemos ninguna relación con él, el contenido es subido por los usuarios del sitio web aidoru-online.me.</description>
+        <description lang="fr">Il apporte l'accès au contenu du site web aidoru-online.me, comme des vidéos musicales jusqu'aux performances, en lançant pour des DVD, des singles, des albums, des photos, des sous-titres et bien plus encore… L'auteur de cet addon n'est pas responsable du contenu hébergé sur ce site web, ni n'avons aucune relation avec lui, le contenu est téléchargé par les utilisateurs du site web aidoru-online.me.</description>
+        <description lang="hi">यह aidoru-online.me वेबसाइट की सामग्री तक पहुंच लाता है, जैसे संगीत वीडियो से लेकर प्रदर्शनों तक, डीवीडी, सिंगल, एल्बम, फोटो, उपशीर्षक और बहुत कुछ के लिए फेंकना… इस एडऑन के लेखक इस वेबसाइट पर होस्ट की गई सामग्री के लिए जिम्मेदार नहीं हैं, न ही हमें इसके साथ कोई संबंध है, सामग्री aidoru-online.me वेबसाइट के उपयोगकर्ताओं द्वारा अपलोड की जाती है।</description>
+        <description lang="ja">aidoru-online.meのウェブサイトのコンテンツにアクセスできるようになります。音楽ビデオからパフォーマンスまで、DVD、シングル、アルバム、写真、字幕などを投げることができます… このアドオンの作者は、このウェブサイトにホストされているコンテンツに責任を持ちませんし、私たちはそれと関係がありません。コンテンツはaidoru-online.meのウェブサイトのユーザーによってアップロードされます。</description>
+        <description lang="ko">aidoru-online.me 웹사이트의 콘텐츠에 액세스할 수 있습니다. 음악 비디오부터 공연까지, DVD, 싱글, 앨범, 사진, 자막 등을 던질 수 있습니다… 이 애드온의 저자는 이 웹사이트에 호스팅된 콘텐츠에 대해 책임을 지지 않으며, 우리는 그것과 관련이 없습니다. 콘텐츠는 aidoru-online.me 웹사이트의 사용자들에 의해 업로드됩니다.</description>
+        <description lang="pt">Traz acesso ao conteúdo do site aidoru-online.me, como vídeos musicais até performances, lançando para DVDs, singles, álbuns, fotos, legendas e muito mais… O autor deste addon não é responsável pelo conteúdo hospedado neste site, nem temos qualquer relação com ele, o conteúdo é enviado pelos usuários do site aidoru-online.me.</description>
+        <description lang="ru">Он дает доступ к содержанию сайта aidoru-online.me, такому как музыкальные видео до выступлений, бросая для DVD, синглов, альбомов, фотографий, субтитров и многого другого… Автор этого дополнения не несет ответственности за содержимое, размещенное на этом сайте, ни мы не имеем с ним никакой связи, содержимое загружается пользователями сайта aidoru-online.me.</description>
+        <description lang="th">มันนำเสนอการเข้าถึงเนื้อหาของเว็บไซต์ aidoru-online.me เช่นวิดีโอเพลงจนถึงการแสดง โยนสำหรับ DVD, ซิงเกิล, อัลบั้ม, รูปภาพ, คำบรรยายและอีกมากมาย… ผู้เขียนของส่วนเสริมนี้ไม่รับผิดชอบเนื้อหาที่โฮสต์บนเว็บไซต์นี้ หรือเราไม่มีความสัมพันธ์ใด ๆ กับมันเนื้อหาถูกอัปโหลดโดยผู้ใช้เว็บไซต์ aidoru-online.me</description>
+        <description lang="zh">它带来了对aidoru-online.me网站的内容的访问, 比如音乐视频到表演, 为DVD, 单曲, 专辑, 照片, 字幕和更多东西投掷… 这个插件的作者不对这个网站上托管的内容负责, 也没有和它有任何关系, 内容是由aidoru-online.me网站的用户上传的。</description>
+        <language>de,en-AU,en-GB,en-NZ,en-US,es-AR,es-ES,es-MX,fr-CA,fr-FR,hi,ja,ko,pt-BR,pt-PT,ru,th,zh-CN,zh-TW</language>
         <platform>all</platform>
         <license>MIT</license>
         <forum></forum>
-        <source></source>
+        <source>http://ponchofcult.github.io/</source>
         <news></news>
-        <disclaimer>This addon uses the bencodepy, whose author are Dean Gardiner. The author of this addon is not responsible for the content he provides or for the use given to it.</disclaimer>
+        <disclaimer lang="de">Es bringt Zugang zu den Inhalten der Website aidoru-online.me. Der Autor dieses Addons ist nicht für den Inhalt verantwortlich, den er bereitstellt oder für die Verwendung, die ihm gegeben wird.</disclaimer>
+        <disclaimer lang="en">It brings access to the content of the aidoru-online.me website. The author of this addon is not responsible for the content he provides or for the use given to it.</disclaimer>
+        <disclaimer lang="es">Trae acceso al contenido del sitio web aidoru-online.me. El autor de este addon no es responsable por el contenido que provee ni por el uso que se le dé.</disclaimer>
+        <disclaimer lang="fr">Il apporte l'accès au contenu du site web aidoru-online.me. L'auteur de cet addon n'est pas responsable du contenu qu'il fournit ni de l'utilisation qui en est faite.</disclaimer>
+        <disclaimer lang="hi">यह aidoru-online.me वेबसाइट की सामग्री तक पहुंच लाता है। इस एडऑन के लेखक उनके द्वारा प्रदान की गई सामग्री या उसके उपयोग के लिए जिम्मेदार नहीं हैं।</disclaimer>
+        <disclaimer lang="ja">aidoru-online.meのウェブサイトのコンテンツにアクセスできるようになります。このアドオンの作者は、彼が提供するコンテンツやその使用について責任を負いません。</disclaimer>
+        <disclaimer lang="ko">aidoru-online.me 웹사이트의 콘텐츠에 액세스할 수 있습니다. 이 애드온의 저자는 그가 제공하는 콘텐츠나 그 사용에 대해 책임을 지지 않습니다.</disclaimer>
+        <disclaimer lang="pt">Traz acesso ao conteúdo do site aidoru-online.me. O autor deste addon não é responsável pelo conteúdo que ele fornece ou pelo uso que lhe é dado.</disclaimer>
+        <disclaimer lang="ru">Он дает доступ к содержанию сайта aidoru-online.me. Автор этого дополнения не несет ответственности за содержимое, которое он предоставляет или за использование, которое ему дается.</disclaimer>
+        <disclaimer lang="th">มันนำเสนอการเข้าถึงเนื้อหาของเว็บไซต์ aidoru-online.me ผู้เขียนของส่วนเสริมนี้ไม่รับผิดชอบเนื้อหาที่เขาให้หรือการใช้ที่มอบให้เขา</disclaimer>
+        <disclaimer lang="zh">它带来了对aidoru-online.me网站的内容的访问。这个插件的作者不对他提供的内容或给它的用途负责。</disclaimer>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
