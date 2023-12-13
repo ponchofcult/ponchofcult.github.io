@@ -252,3 +252,23 @@ msgstr "남은 항목"
 msgctxt "#30058"
 msgid "Download Complete..."
 msgstr "다운로드 완료..."
+
+msgctxt "#30059"
+msgid "Please invite me to a bit of pizza."
+msgstr "피자 조금만 초대해 주세요."
+
+msgctxt "#30060"
+msgid "Hello, I'm {}, the creator of this kawaii addon that lets you watch the best content of your favourite Japanese idols from the aidoru-online site. I've built it little by little over two long years and I'm the only person who supports it right now, you can imagine the adversities that entails. So if you liked the addon, which I made with a lot of love for you, if you want it to keep working for longer and that I can make more addons about your favourite idols, I would appreciate it with all my kokoro if today you can invite me to a bit of pizza…yumi, yumi… . If you want to support me, you can do it at this link: {} or scanning the QR code. Arigatou gozaimasu!!."
+msgstr "안녕하세요, 저는 {}입니다. aidoru-online 사이트에서 당신이 좋아하는 일본 아이돌의 최고의 콘텐츠를 볼 수 있게 해주는 귀여운 애드온의 제작자입니다. 저는 두 해 동안 조금씩 만들어 왔고, 지금은 저 혼자서만 지원하고 있습니다. 그것이 얼마나 힘든 일인지 상상할 수 있을 것입니다. 그래서, 당신이 애드온을 좋아해 주셨다면, 당신을 위해 정말 많은 사랑을 담아 만든 것입니다. 더 오래 작동하게 하고, 당신이 좋아하는 아이돌에 관한 더 많은 애드온을 만들 수 있도록, 오늘 당신이 저에게 피자 조금만 초대해 주신다면, 저는 온 마음을 다해 감사하겠습니다…유미, 유미… . 저를 지원하고 싶으시다면, 이 링크에서 하실 수 있습니다: {} 또는 QR 코드를 스캔하십시오. 감사합니다!!."
+
+msgctxt "#30061"
+msgid "Thanks Button"
+msgstr "감사 버튼"
+
+msgctxt "#30062"
+msgid "Give thanks to {}."
+msgstr "{}에게 감사합니다."
+
+msgctxt "#30063"
+msgid "You and {} other users have already thanked {}."
+msgstr "당신과 {}명의 다른 사용자들이 이미 {}에게 감사했습니다."

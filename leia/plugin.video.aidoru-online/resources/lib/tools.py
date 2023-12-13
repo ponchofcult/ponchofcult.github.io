@@ -1,16 +1,15 @@
+import xbmc
 import xbmcaddon
 import xbmcvfs
 from . import logger
 import os
+import re
+from contextlib import contextmanager
 import urllib.parse as urllib
 import random
 import bencode
 import hashlib
 import unicodedata
-
-def printer():
-    string = "Viva el Rey Viserys"
-    return logger.debug(string)
 
 
 def getString(stringID):
@@ -24,19 +23,18 @@ def getSetting(settingName):
 
 
 def downloadFile(file_name,subdirectory_name,file_content):
-    name = unicodedata.normalize('NFKD', file_name).encode('ASCII', 'ignore').decode('utf-8').replace(',','')
-    route = "special://home/temp"
-    profile = xbmcvfs.translatePath(route)
-    addon = xbmcaddon.Addon().getAddonInfo('name').lower().replace(' ','')
-    directory = addon
-    archive = subdirectory_name.strip()
-    path = xbmcvfs.translatePath(os.path.join(profile, directory, archive))
+    file_name = file_name.replace('&', '_and_')
+    name = re.sub("[^A-Za-z0-9\-_\s.()]", "", file_name)
+    route = xbmcvfs.translatePath("special://home/temp")
+    directory = xbmcaddon.Addon().getAddonInfo('name').lower().replace(' ','_')
+    archive = subdirectory_name.strip().replace(' ','_')
+    path = xbmcvfs.translatePath(os.path.join(route, directory, archive))
     try:
         xbmcvfs.mkdirs(path)
-        logger.debug("Directory '%s' created" %directory)
+        logger.debug("Directory {} created".format(directory))
     except OSError as error:
         logger.debug(error)
-    file_path = xbmcvfs.translatePath(os.path.join(profile, directory, archive, name))
+    file_path = xbmcvfs.translatePath(os.path.join(route, directory, archive, name))
     with open(file_path, 'wb') as file:
         file.write(file_content)
         file.close()
@@ -61,6 +59,7 @@ def mixCharacters(len):
     string = ''.join(string)
     return str(string)
 
+
 def mixUserAgents():
     ua_list = [
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -78,18 +77,33 @@ def mixUserAgents():
 
     for ua in ua_list:
         user_agent = ua
-    
     return user_agent
 
-def getFileData(file):
-    with open(file, "rb") as f:
-        file = bencode.decode(f.read())
+
+def getFileData(archive):
+    with open(archive, "rb") as a:
+        file = a
+        archive = bencode.decode(a.read())
         try:
-            info_hash = hashlib.sha1(bencode.encode(file[b'info'])).hexdigest()
-            name = file[b'info'][b'name']
-            files = file[b'info'][b'files']
-            return info_hash, str(name), files
+            info_hash = hashlib.sha1(bencode.encode(archive[b'info'])).hexdigest()
+            name_bytes = archive[b'info'][b'name']
+            name = name_bytes.decode("utf-8")
+            files_bytes = archive[b'info'][b'files']
+            files = ['/'.join([file.decode('utf-8') for file in path[b'path']]) for path in files_bytes]
+            return info_hash, name, files, file 
         except Exception as e:
             logger.debug(e)
             pass
     
+@contextmanager
+def busy_spinner():
+    """
+    Show busy spinner for long operations
+    This context manager guarantees that a busy spinner will be closed
+    even in the event of an unhandled exception.
+    """
+    xbmc.executebuiltin('ActivateWindow(10138)')  # Busy spinner on
+    try:
+        yield
+    finally:
+        xbmc.executebuiltin('Dialog.Close(10138)')  # Busy spinner off

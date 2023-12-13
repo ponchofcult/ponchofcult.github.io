@@ -2,7 +2,7 @@
   <addon 
   id="repository.turning-japanese" 
   name="[COLOR red]T[/COLOR][COLOR white]u[/COLOR][COLOR red]r[/COLOR][COLOR white]n[/COLOR][COLOR red]i[/COLOR][COLOR white]n[/COLOR][COLOR red]g[/COLOR][COLOR white]-[/COLOR][COLOR red]J[/COLOR][COLOR white]a[/COLOR][COLOR red]p[/COLOR][COLOR white]a[/COLOR][COLOR red]n[/COLOR][COLOR white]e[/COLOR][COLOR red]s[/COLOR][COLOR white]e[/COLOR] [COLOR red]R[/COLOR][COLOR white]e[/COLOR][COLOR red]p[/COLOR][COLOR white]o[/COLOR][COLOR red]s[/COLOR][COLOR white]i[/COLOR][COLOR red]t[/COLOR][COLOR white]o[/COLOR][COLOR red]r[/COLOR][COLOR white]y[/COLOR]" 
-  version="2.0.2" 
+  version="2.0.3" 
   provider-name="Ponchofcult">
   <requires>
     <import addon="xbmc.addon" version="12.0.0"/>  
@@ -36,16 +36,6 @@
     <info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
     <checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
     <datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
-  </dir>
-  <dir>
-    <info>http://127.0.0.1:61234/addons.xml</info>
-    <checksum>http://127.0.0.1:61234/addons.xml.md5</checksum>
-    <datadir>http://127.0.0.1:61234/</datadir>
-  </dir>
-  <dir>
-    <info>http://127.0.0.1:65223/addons.xml</info>
-    <checksum>http://127.0.0.1:65223/addons.xml.md5</checksum>
-    <datadir>http://127.0.0.1:65223/</datadir>
   </dir>
   </extension>
   <extension point="xbmc.addon.metadata">

@@ -15,13 +15,17 @@ import xbmcaddon
 import xbmcvfs
 import sys
 import urllib.parse as urllib
+import random
 from random import uniform
 from time import sleep as wait
 from PIL import Image
+import os
+import re
 import shutil
 
-STR = tools.getString
+STR = tools.getString #Para facilitar el llamado de strings alojados en languages
 
+### BLOQUE SELECCIONAR ADDON - RESPALDO ###
 addonID = xbmcaddon.Addon().getAddonInfo('id')
 repoContainer = xbmcvfs.translatePath('special://home/addons/{}/resources/lib/{}')
 path = xbmcvfs.translatePath('special://home/addons/{}')
@@ -44,16 +48,49 @@ if tools.getSetting("torrent_player") == "Elementum":
     except Exception as e:
         sys.exit()
 
+# Definimos la particion donde esta alojado nuestro addon, creamos la particion completa a las carpetas de resources/media y resources/media/fanarts
+# Vemos que archivos o carpetas contiene la carpeta de fanarts, creamos una lista vacia, iteramos sobre la lista que nos devuelve fanarts y añadimos cada nombre de archivo a la lista que creamos
+# Creamos dos variables para poder utilizarlas posteriormente en todo el script
+addon_path = xbmcaddon.Addon().getAddonInfo("path")
+media = xbmcvfs.translatePath(os.path.join(addon_path,"resources","media"))
+fanarts_path = os.path.join(media,"fanarts")
+fanarts = xbmcvfs.listdir(fanarts_path)
+
+aviable_fanarts = []
+
+for fanart in fanarts[1]:
+    aviable_fanarts.append(os.path.join(fanarts_path,fanart))
+    
+fanart_random = random.choice(aviable_fanarts)
+logo = xbmcvfs.translatePath(os.path.join(media,"{}_logo.png")) # Usamos el método format () una sola vez para insertar el valor del nombre del logo 
+
+# Modificamos los ajustes necesarios en Elementum para que el usuario no tenga inconvenientes
+try:
+    root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path').strip()
+    xbmcaddon.Addon("plugin.video.elementum").setSetting("download_file_strategy","2")
+    xbmcaddon.Addon("plugin.video.elementum").setSettingBool("silent_stream_start",True)
+    xbmcaddon.Addon("plugin.video.elementum").setSettingInt("buffer_timeout",600)
+    if root == "" or root == "/":
+        xbmcaddon.Addon("plugin.video.elementum").setSetting("download_path","special://home/cache/elementum/")
+except Exception as e:
+    sys.exit()
+
+
+### BLOQUE PARA LOGUEAR EN LA PAGINA https://aidoru-online.me/###
+# Preguntamos en ajustes cual es el usuario y la contraseña que brindo el usuario
 username = tools.getSetting("username")
 password = tools.getSetting("password")
 
-url = "https://aidoru-online.me/"
-url_constructor = urljoin_partial(url)
-url = url_constructor(url)
+# Asignamos una url principal, la pasamos a urljoin_partial, creamos una variable url con el constructor creado
+# Asignamos variables para utilizar requests, uniform y sleep en todo el script
+main_url = "https://aidoru-online.me/"
+url_constructor = urljoin_partial(main_url)
+url = url_constructor(main_url)
 s = requests.session()
 some_time = uniform(1000, 5000)
 sleep = xbmc.sleep
 
+# Llamamos la cookie ufp y el user-agent que nos manda el script tools.py y rellenamos el header, los parametros y la data
 cookies = 'flog=6; ufp={}'.format(tools.mixCharacters(32))
 user_agent = tools.mixUserAgents()
 headers = {
@@ -84,6 +121,8 @@ data = {
   'language': 'en'
 }
 
+# Asignamos a una variable _url y le colocamos la url construida para loguear en la pagina
+# Enviamos los datos a esa url con requests y hacemos una pausa para no saturar el sistema  
 _url = url_constructor("login.php?type=login")
 response = s.post(_url, headers=headers, data=data)
 sleep(int(some_time))
@@ -91,6 +130,7 @@ sleep(int(some_time))
 
 @Route.register
 def root(plugin, content_type="segment"):
+    # Entramos al sitio, comprobamos si estamos logueados, si no estamos logueados aparece un popup pidiendonoslo.
     resp = bs(s.get(url).text, 'html.parser')
     sleep(int(some_time))
     if resp.contents == []:
@@ -104,57 +144,74 @@ def root(plugin, content_type="segment"):
                 xbmcaddon.Addon().openSettings()
             else:
                 pass
-    
+    # El primer item es un mensaje de Bienvenida al usuario.
     item = Listitem()
     item.label = "{}: {}".format(STR(30007),tools.getSetting("username").upper())
+    item.art["fanart"] = fanart_random
     yield item
 
+    # Mensaje a los lindos usuarios que no me dejaran morir de hambre.
+    item = Listitem()
+    item.label = STR(30059)
+    item.info["plot"] = STR(30060).format("JPonCho","https://www.buymeacoffee.com/ponchofcult")
+    item.art["thumb"] = logo.format("qr")
+    item.art["fanart"] = fanart_random
+    yield item
+    # Nos envia a la opcion para buscar el contenido deseado
     item = Listitem()
     item.label = STR(30008)
+    item.art["thumb"] = logo.format("search")
+    item.art["fanart"] = fanart_random
     item.set_callback(search_Content)
     yield item
 
+    # Hacemos una lista de tuplas, con dos elementos relacionados en cada una, nombre completo de la compañia y nombre abreviado que se pone en la URL. Accedemos a el segun los necesitemos.
     categories = [
-        (STR(30009),"Show+All"),
-        ("48 Group Family","48G"),
-        ("Hello! Project","H!P"),
-        ("Stardust Promotion","Stardust"),
-        (STR(30044),"Other")]
+        (STR(30009),"Show+All","all-content"),
+        ("48 Group Family","48G","48g"),
+        ("Hello! Project","H!P","h!p"),
+        ("Stardust Planet","Stardust","stapla"),
+        (STR(30044),"Other","others")]
 
     for pcat in categories:
         item = Listitem()
         item.label = pcat[0]
         linkpart = "get_ttable.php?pcat={}&typ=both".format(pcat[1])
         pcat_url = url_constructor(linkpart)
+        item.art["thumb"] = logo.format(pcat[2])
+        item.art["fanart"] = fanart_random
         item.set_callback(sub_Categories, pcat_url=pcat_url)
         yield item
 
 
 @Route.register
 def sub_Categories(plugin, pcat_url):
+    # Lista de Tuplas con dos elementos relacionados, el nombre de la subcategoria y la parte que le corresponde de la URL.
     subcategories = [
-        (STR(30009), "&scat=&subbed=&fl=&resd=&p=0&searchstr=&deadlive=1"),
-        (STR(30010), "&scat=1"),
-        (STR(30011), "&scat=2"),
-        (STR(30012), "&scat=3"),
-        (STR(30013), "&scat=4"),
-        (STR(30014), "&scat=5"),
-        (STR(30015), "&scat=6"),
-        (STR(30016), "&scat=7"),
-        (STR(30017), "&scat=8"),
-        (STR(30018), "&scat=9"),
-        (STR(30019), "&scat=10"),
-        (STR(30020), "&scat=11"),
-        (STR(30021), "&scat=12"),
-        (STR(30022), "&subbed=1"),
-        (STR(30023), "&fl=1"),
-        (STR(30024), "&resd=1"),    
+        (STR(30009), "&scat=&subbed=&fl=&resd=&p=0&searchstr=&deadlive=1", "all-content"),
+        (STR(30010), "&scat=1", "dvd-bd"),
+        (STR(30011), "&scat=2", "dvd-bd2"),
+        (STR(30012), "&scat=3", "tv"),
+        (STR(30013), "&scat=4", "perf"),
+        (STR(30014), "&scat=5", "pv"),
+        (STR(30015), "&scat=6", "stream"),
+        (STR(30016), "&scat=7", "image"),
+        (STR(30017), "&scat=8", "audio"),
+        (STR(30018), "&scat=9", "album"),
+        (STR(30019), "&scat=10", "single"),
+        (STR(30020), "&scat=11", "radio"),
+        (STR(30021), "&scat=12", "misc"),
+        (STR(30022), "&subbed=1", "subs"),
+        (STR(30023), "&fl=1", "freeleech"),
+        (STR(30024), "&resd=1", "resurrected"),    
     ]
 
     for scat in subcategories:
         item = Listitem()
         item.label = scat[0]
         scat_url = url_constructor("{}{}".format(pcat_url, scat[1]))
+        item.art["thumb"] = logo.format(scat[2])
+        item.art["fanart"] = fanart_random
         item.set_callback(all_Content, scat_url=scat_url)
         yield item
 
@@ -175,19 +232,55 @@ def all_Content(plugin, scat_url):
         elem_router = elem.find("td", valign="middle")
         item.label = elem_router.find_next_sibling("td").find("a").get("title")
         url = url_constructor(elem_router.find_next_sibling("td").find("a").get("href"))
-        img = bs(s.get(url).text, 'html.parser')
-        fanarts = img.find_all(class_="image-link")
-        thumbnails = img.find_all(class_="torrent-image")
+        data = bs(s.get(url).text, 'html.parser')
         
-        # Obtenemos las URL de las imagenes y sustituimos unos valores para que esten en la mejor calidad posible
-        for art in fanarts:
-            img_link = art.get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
-            item.art['fanart'] = img_link
-        for thumb in thumbnails:
-            img_link = thumb.get("data-imgurl").replace('640x480q90', '4032x3024q90')
-            item.art['thumb'] = img_link
-        item.set_callback(details_Content, url=url, label=item.label, scat_url=scat_url)
-        yield item 
+        ### SOLO PONER .TEXT AL FINAL CUANDO COLOQUEMOS LO QUEREMOS MOSTRAR A LOS ITEM DE LISTITEM()###
+        covers = data.find_all(class_="image-link")
+        screenshots = data.find_all(class_="torrent-image")
+        
+        description = data.find("b", text="Description:").find_parent("tr").text
+        category = data.find("b", text="Category:").find_parent("tr").text
+        total_size = data.find("b", text="Total Size:").find_parent("tr").text
+        added_by = data.find("b", text="Added By:").find_parent("tr").text
+        date_added = data.find("b", text="Date Added:").find_parent("tr").text
+        seeds = data.find("b", text="Seeds:").find_parent("tr").text
+        leechers = data.find("b", text="Leechers:").find_parent("tr").text
+        completed = data.find("b", text="Completed:").find_parent("tr").text
+        views = data.find("b", text="Views:").find_parent("tr").text
+        hits = data.find("b", text="Hits:").find_parent("tr").text
+        try:
+            last_activity = data.find("b", text="Last Activity").find_parent("tr").text
+        except AttributeError as e:
+            logger.debug(e)
+            last_activity = ""
+        
+        item.info["plot"] = "| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(seeds,leechers,added_by,description,total_size,category,date_added,last_activity,completed,views,hits)
+
+        # Inicializar art_link y thumb_link con un valor por defecto y verificar si fanarts tiene algún elemento.
+        # Asignamos el valor de la imagen al ultimo elemento de fanarts, si fanarts esta vacio se le asigna el primer elemento de thumbnails.
+        # Luego verificamos si thumbnails tiene algun elemento, asignamos el valor de la imagen al ultimo elemento de thumbnails, si thumbnails esta vacio se le asigna el primer elemento de fanarts.
+        # Obtenemos las URL de las imagenes y sustituimos unos valores para que esten en la mejor calidad posible.
+        # Llamamos a la función details_Content con set_callback con los valores que necesitemos.
+        
+        art_link = fanart_random
+        thumb_link = ""
+        
+        if covers:
+            thumb_link = covers[0].get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
+            item.art['thumb'] = thumb_link 
+        elif screenshots:
+            thumb_link = screenshots[0].get("data-imgurl").replace('640x480q90', '4032x3024q90')
+            item.art['thumb'] = thumb_link
+
+        if screenshots:    
+            art_link = screenshots[-1].get("data-imgurl").replace('640x480q90', '4032x3024q90')
+            item.art['fanart'] = art_link
+        elif covers:
+            art_link = covers[0].get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
+            item.art['fanart'] = art_link
+            
+        item.set_callback(details_Content, url=url, label=item.label, art=art_link, thumb=thumb_link, scat_url=scat_url)
+        yield item
         
     # Para ir a la siguiente pagina encontramos todas las etiquetas "p" con align="center" y de esa lista buscamos el ultimo elemento con etiqueta "a" con class="page-link" y adquirimos el numero de data-pagenum
     # Construimos la URL y la pasamos a la siguiente funcion
@@ -211,11 +304,15 @@ def all_Content(plugin, scat_url):
                     # Usando el método format() para crear la cadena con los valores calculados
                     item = Listitem()
                     item.label = "{} | {}-{} | {} >> {} | {}-{}".format(str(pag), str(start), str(end), STR(30025), str(pag+1) ,str(next_start), str(next_end))
+                    item.art["thumb"] = logo.format("next")
+                    item.art["fanart"] = fanart_random
                     item.set_callback(all_Content, scat_url=nextPage)
                     yield item
 
                     item = Listitem()
                     item.label = STR(30026)
+                    item.art["thumb"] = logo.format("find")
+                    item.art["fanart"] = fanart_random
                     item.set_callback(page_Finder, url=_url)
                     yield item
         
@@ -224,7 +321,7 @@ def all_Content(plugin, scat_url):
     
        
 @Route.register
-def details_Content(plugin,url,label,scat_url):
+def details_Content(plugin,url,label,art,thumb,scat_url):
     label = label
     # Construimos la URL y buscamos las imagenes.
     link = s.get(url_constructor(url))
@@ -235,37 +332,63 @@ def details_Content(plugin,url,label,scat_url):
     #Buscamos como referencia la etiqueta con id ty-button y en el div anterior obtenemos el enlace href al archivo Torrent que se encuentra en 'a'
     url_router = resp.find(id="ty-button")
     url = url_constructor(url_router.find_previous_sibling("div").find("a").get("href"))
+    added_by = resp.find("b", text="Added By:").find_parent("tr").text.split(':')[1]
+    
+    if url_router.text == "Thanks":
+        item = Listitem()
+        item.label = STR(30061)
+        item.info["plot"] = STR(30062).format(added_by)
+        item.art["thumb"] = logo.format("thanksbutton")
+        item.art["fanart"] = fanart_random
+        item.set_callback(thanks_button, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+        yield item
+    else:
+        item = Listitem()
+        item.label = STR(30063).format(url_router.text.replace(' Thanks',''),added_by)
+        item.art["thumb"] = logo.format("thankssupport")
+        item.art["fanart"] = fanart_random
+        item.set_callback(details_Content, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+        yield item
+    
     # Obtenemos el contenido, el nombre y el nombre del post para nombrar la locacion
     # Descargamos el archivo Torrent
     tor_content = s.get(url).content
     sleep(int(some_time))
-    tor_name = s.get(url).headers.get("Content-Disposition").split('filename=')[1].replace('"','')
+    get_name = s.get(url).headers.get("Content-Disposition").split('filename=')[1].replace('"','').replace('&', '_and_')
+    tor_name = re.sub("[^A-Za-z0-9\-_\s.()]", "", get_name)
     sleep(int(some_time))
     tor_loc = link.url.split('=')[1]
     torrent = tools.downloadFile(tor_name,tor_loc,tor_content)
-    img_path = torrent.replace(tor_name,"images\{}".format(""))
+    img_path = xbmcvfs.translatePath(os.path.join(torrent.replace(tor_name,''),"images", ""))
+    
+    # item = Listitem()
+    # item.label = tor_name.replace('.torrent','')
+    # item.art['fanart'] = art
+    # item.art['thumb'] = thumb
+    # item.set_callback(torrent_File, torrent=torrent, img_path=img_path, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+    # yield item
+
+    torrent_player = tools.getSetting("torrent_player")
+    player_uri = {"Elementum" : "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe='')),
+                    "Torrest" : "plugin://plugin.video.torrest/play_path?path={}".format(torrent),
+                    }
     
     item = Listitem()
-    if tools.getSetting("torrent_player") == "Elementum":
-        if "&scat=7" in scat_url:
-            item.label = "{} {}".format(STR(30051),tor_name.replace('.torrent',''))
-            item.set_callback(torrent_Images, torrent=torrent, img_path=img_path, url=link.url, label=label, scat_url=scat_url)
-        else:
-            item.label = tor_name.replace('.torrent','')
-            uri = "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe=''))
-            item.set_path(uri)
-    elif tools.getSetting("torrent_player") == "Torrest":
-        if "&scat=7" in scat_url:
-            item.label = "{} {}".format(STR(30051),tor_name.replace('.torrent',''))
-            item.set_callback(torrent_Images, torrent=torrent, img_path=img_path, url=link.url, label=label, scat_url=scat_url)
-        else:
-            item.label = tor_name.replace('.torrent','')
-            uri = "plugin://plugin.video.torrest/play_path?path={}".format(torrent)
-            item.set_path(uri)
+    if "&scat=7" in scat_url:
+        item.label = "{} {}".format(STR(30051),label)
+        item.set_callback(download_Images, torrent=torrent, img_path=img_path, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+    else:
+        item.label = label
+        uri = player_uri[torrent_player]
+        logger.debug("URI: {}".format(uri))
+        item.set_path(uri)
     item.art['thumb'] = "https://cdn.icon-icons.com/icons2/1508/PNG/512/bittorrent_103937.png"
     yield item
-    
-    #Despues de buscar, obtener y renombrar la url, obtenemos el nombre de la imagen, el id del post, el contenido de la imagen y la descargamos
+
+
+    # Colocamos un valor vacio a image_file para evitar errores
+    image_file = ""
+    # Despues de buscar, obtener y renombrar la url, obtenemos el nombre de la imagen, el id del post, el contenido de la imagen y la descargamos
     for image in covers + images:
         if image in covers:
             url = image.get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
@@ -278,74 +401,68 @@ def details_Content(plugin,url,label,scat_url):
         img_gallery = "{}/images/".format(link.url.split('=')[1])
         image_file = tools.downloadFile(img_name, img_gallery, img_content)
 
-    album = image_file.replace(img_name,'')
-    all_elems = xbmcvfs.listdir(album)
-    all_images = all_elems[1]
-    
-    for image in all_images:
-        item = Listitem()
-        pic = "{}{}".format(album,image)
-        item.art['thumb'] = pic
-        item.art['fanart'] = pic
-        if image.endswith(('.jpg','.jpeg', '.jfif', '.png', '.tif', '.tiff', '.gif', '.bmp', '.heif', '.raw')):
-            item.label = "{} {}".format(STR(30028),image).replace('.jpg','').replace('.jpeg','').replace('.jfif','').replace('.png','').replace('.tif','').replace('.tiff','').replace('.gif','').replace('.bmp','').replace('.heif','').replace('.raw','')
-            item.set_callback(show_Photos, album=album, pic=pic, url=url, label=item.label, uri="")   
-        else:
-            item.label = image
-            if tools.getSetting("torrent_player") == "Elementum":
-                uri = "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe=''))
-                item.set_path(uri)
-            elif tools.getSetting("torrent_player") == "Torrest":
-                uri = "plugin://plugin.video.torrest/play_path?path={}".format(torrent)
-                item.set_path(uri)
-        yield item
-    
-    if "&scat=7" in scat_url:
-        item = Listitem()
-        # ACA HAY TEXTO!!! 
-        item.label = STR(30052)
-        item.set_callback(details_Content, url=link.url, label=label, scat_url=scat_url)
-        item.art['thumb'] = "https://cdn.icon-icons.com/icons2/1508/PNG/512/bittorrent_103937.png"
-        yield item
+    if not image_file == "":
+        album = image_file.replace(img_name,'')
+        all_elems = xbmcvfs.listdir(album)
+        all_images = all_elems[1]
+        all_images = [i for i in all_images if not i.endswith('.txt')]
 
+        for image in all_images:
+            item = Listitem()
+            pic = xbmcvfs.translatePath(os.path.join(album,image))
+            if image.endswith(('.jpg','.jpeg', '.jfif', '.png', '.tif', '.tiff', '.gif', '.bmp', '.heif', '.raw')):
+                item.label = "{} {}".format(STR(30028),image).replace('.jpg','').replace('.jpeg','').replace('.jfif','').replace('.png','').replace('.tif','').replace('.tiff','').replace('.gif','').replace('.bmp','').replace('.heif','').replace('.raw','')
+                item.set_callback(show_Photos, album=album, pic=pic, url=url, label=item.label, uri="")   
+                item.art['thumb'] = pic
+                item.art['fanart'] = pic
+            else:
+                item.label = image
+                item.art['thumb'] = xbmcvfs.translatePath(os.path.join(album,all_images[3]))
+                uri_vid = pic
+                item.set_path(uri_vid)
+            yield item
+    
 
 @Route.register
-def torrent_Images(plugin,torrent,img_path,url,label,scat_url):
-    progress = xbmcgui.DialogProgressBG()
+def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
+    progress = xbmcgui.DialogProgress()
     progress.create(STR(30053),label)
     progress.update(25, STR(30054))
+
     info_hash = tools.getFileData(torrent)[0]
-    dir_name = tools.getFileData(torrent)[1].replace("b'","").replace("'","")
-    files = tools.getFileData(torrent)[2]
-    images = [str(file[b'path']).replace("[b'","").replace("',","").replace(" b'","/").replace("']","") for file in files]
+    dir_name = tools.getFileData(torrent)[1]
+    images = tools.getFileData(torrent)[2]
     
-   
-    if tools.getSetting("torrent_player") == "Elementum":
-        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
-        uri = "plugin://plugin.video.elementum/download/?uri={}".format(urllib.quote_plus(torrent, safe=''))
-        resume = "plugin://plugin.video.elementum/download/?oindex={}&resume={}"
-        xbmc.executebuiltin('Dialog.Close(all, true)')
-        xbmc.executebuiltin('PlayMedia({})'.format(uri))
-        wait(5)
-        xbmc.executebuiltin('Action(Close)')
-        wait(2)
-        
-        
-    elif tools.getSetting("torrent_player") == "Torrest":
-        root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
-        uri = "plugin://plugin.video.torrest/play_path?path={}&download=true&buffer=false".format(torrent)
-        download = "plugin://plugin.video.torrest/torrents/{}/download".format(info_hash)
+    path_file = xbmcvfs.translatePath(os.path.join(img_path,images[-1].split('/')[-1]))
+    
+    if not xbmcvfs.exists(path_file):
+        if tools.getSetting("torrent_player") == "Elementum":
+            root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
+            uri = "plugin://plugin.video.elementum/download/?uri={}".format(urllib.quote_plus(torrent, safe=''))
+            resume = "plugin://plugin.video.elementum/download/?oindex={}&resume={}"
+            xbmc.executebuiltin('Dialog.Close(all, true)')
+            xbmc.executebuiltin('PlayMedia({})'.format(uri))
+            wait(5)
+            # xbmc.executebuiltin('Action(Close)')
+            # wait(2)
+            
+            
+        elif tools.getSetting("torrent_player") == "Torrest":
+            root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
+            uri = "plugin://plugin.video.torrest/play_path?path={}&download=true&buffer=false".format(torrent)
+            download = "plugin://plugin.video.torrest/torrents/{}/download".format(info_hash)
 
-        xbmc.executebuiltin('RunPlugin("{}")'.format(uri))
-        wait(2)
-        xbmc.executebuiltin('RunPlugin("{}")'.format(download))
-        wait(2)
+            xbmc.executebuiltin('RunPlugin("{}")'.format(uri))
+            wait(2)
+            xbmc.executebuiltin('RunPlugin("{}")'.format(download))
+            wait(2)
+    else:
+        pass
 
-    wait(3)
     paths = []
     images_toCopy = []
     for image in images:
-        route = "/".join([root, dir_name, image])
+        route = xbmcvfs.translatePath(os.path.join(root,dir_name,image))
         path = xbmcvfs.translatePath(route)
         paths.append(path)
     
@@ -358,7 +475,7 @@ def torrent_Images(plugin,torrent,img_path,url,label,scat_url):
                 images_toCopy.append(paths[0])
                 paths.remove(paths[0])
             except Exception as e:
-                root_dir = xbmcvfs.translatePath("/".join([root,dir_name,""]))
+                root_dir = xbmcvfs.translatePath(os.path.join(root,dir_name,""))
                 img_loc = paths[0].replace(root_dir,"")
                 logger.debug("{}: {}".format(img_loc,e))
                 if tools.getSetting("torrent_player") == "Elementum":
@@ -366,7 +483,7 @@ def torrent_Images(plugin,torrent,img_path,url,label,scat_url):
                         oindex = images.index(img_loc)
                         logger.debug("Oindex is: {}, and the file is: {}".format(oindex,img_loc))
                         xbmc.executebuiltin('Dialog.Close(all, true)')
-                        xbmc.executebuiltin('PlayMedia({})'.format(resume.format(oindex,info_hash)))    
+                        xbmc.executebuiltin('PlayMedia({0},isPlayable=false)'.format(resume.format(oindex,info_hash)))  
                         wait(5)
                 paths.append(paths[0])
                 paths.remove(paths[0])
@@ -375,36 +492,46 @@ def torrent_Images(plugin,torrent,img_path,url,label,scat_url):
             paths.remove(paths[0])
         if len(xbmcvfs.listdir(img_path)) >= len(images):
             break
-
-    if tools.getSetting("torrent_player") == "Elementum":
-        xbmc.executebuiltin('Action(Close)')
+    
+    # if tools.getSetting("torrent_player") == "Elementum":
+    #     xbmc.executebuiltin('Action(Close)')
+    
     wait(2)
     progress.update(75, STR(30054))
     wait(2)
-    
-    copy_progress = xbmcgui.DialogProgress()
-    copy_progress.create(STR(30055), label)
-    copied_images = []
-    for img in images_toCopy:
-        shutil.copy(img,img_path)
-        copied_images.append(img)
-        copy_progress.update((len(copied_images) * 100) // len(images), "{}: {}, {} {}".format(STR(30056),img,len(images) - len(copied_images),STR(30057)))
-        wait(1)
-    copy_progress.close()
-    # ACA HAY TEXTO!!! 
-    progress.update(100, STR(30058))
-    wait(5)
+    if not xbmcvfs.exists(path_file):
+        copy_progress = xbmcgui.DialogProgress()
+        copy_progress.create(STR(30055), label)
+        copied_images = []
+        for img in images_toCopy:
+            shutil.copy(img,img_path)
+            copied_images.append(img)
+            logger.debug(copied_images)
+            copy_progress.update((len(copied_images) * 100) // len(images), "{}: {}, {} {}".format(STR(30056),img,len(images) - len(copied_images),STR(30057)))
+            wait(1)
+        copy_progress.close()
     progress.close()
-    return details_Content(plugin=plugin,url=url,label=label,scat_url=scat_url)
+    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+    
+@Route.register
+def thanks_button(plugin,url,label,art,thumb,scat_url):
+    id = url.split('?')[1]
+    logger.debug(f"URL: {url}")
+    logger.debug(f"ID: {id}")
+    thanks_url = url_constructor("torrents-thanks.php?{}".format(id))
+    logger.debug(f"URL DE THANKS BUTTON: {thanks_url}")
+    do_thanks = s.get(thanks_url)
+    logger.debug(do_thanks.status_code)
+    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
     
 
 @Resolver.register
 def show_Photos(plugin,album,pic,url,label,uri):
     # Obtenemos el album, la imagen, la url de la imagen para evitar errores y el nombre de la imagen para visualizarla
     uri = uri
-    xbmc.executebuiltin('RunPlugin({})'.format(uri))
     url = url
     plugin = plugin.extract_source(url)
+    xbmc.executebuiltin('RunPlugin({})'.format(uri))
     xbmc.executebuiltin("ShowPicture({})".format(pic))
     wait(5)
     xbmc.executebuiltin("SlideShow({},random)".format(album))

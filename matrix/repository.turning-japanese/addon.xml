@@ -2,7 +2,7 @@
   <addon 
   id="repository.turning-japanese" 
   name="[COLOR red]T[/COLOR][COLOR white]u[/COLOR][COLOR red]r[/COLOR][COLOR white]n[/COLOR][COLOR red]i[/COLOR][COLOR white]n[/COLOR][COLOR red]g[/COLOR][COLOR white]-[/COLOR][COLOR red]J[/COLOR][COLOR white]a[/COLOR][COLOR red]p[/COLOR][COLOR white]a[/COLOR][COLOR red]n[/COLOR][COLOR white]e[/COLOR][COLOR red]s[/COLOR][COLOR white]e[/COLOR] [COLOR red]R[/COLOR][COLOR white]e[/COLOR][COLOR red]p[/COLOR][COLOR white]o[/COLOR][COLOR red]s[/COLOR][COLOR white]i[/COLOR][COLOR red]t[/COLOR][COLOR white]o[/COLOR][COLOR red]r[/COLOR][COLOR white]y[/COLOR]" 
-  version="2.0.0" 
+  version="2.0.3" 
   provider-name="Ponchofcult">
   <requires>
     <import addon="xbmc.addon" version="12.0.0"/>  
