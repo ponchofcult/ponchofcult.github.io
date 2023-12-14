@@ -86,14 +86,14 @@ def getFileData(archive):
         archive = bencode.decode(a.read())
         try:
             info_hash = hashlib.sha1(bencode.encode(archive[b'info'])).hexdigest()
-            name_bytes = archive[b'info'][b'name']
-            name = name_bytes.decode("utf-8")
+            name = archive[b'info'][b'name'].decode("utf-8") # name = name_bytes.decode("utf-8")
             files_bytes = archive[b'info'][b'files']
             files = ['/'.join([file.decode('utf-8') for file in path[b'path']]) for path in files_bytes]
-            return info_hash, name, files, file 
+            return info_hash, name, files, file
         except Exception as e:
             logger.debug(e)
             pass
+    
     
 @contextmanager
 def busy_spinner():

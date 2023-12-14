@@ -22,21 +22,71 @@ from PIL import Image
 import os
 import re
 import shutil
+import platform
 
 STR = tools.getString #Para facilitar el llamado de strings alojados en languages
 
-### BLOQUE SELECCIONAR ADDON - RESPALDO ###
 addonID = xbmcaddon.Addon().getAddonInfo('id')
-repoContainer = xbmcvfs.translatePath('special://home/addons/{}/resources/lib/{}')
-path = xbmcvfs.translatePath('special://home/addons/{}')
-torrent_addons = ["Elementum","Torrest"]
-torrent_addons_selection = ["Elementum: {}".format(STR(30045)), "Torrest: {}".format(STR(30046))]
+torrent_addons = ["Elementum: {}".format(STR(30045)), "Torrest: {}".format(STR(30046))]
 
 torrent_player = tools.getSetting("torrent_player")
 if not torrent_player.strip():
-    selection = xbmcgui.Dialog().select(STR(30047), torrent_addons_selection, useDetails=True)
-    xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection])
+    selection = xbmcgui.Dialog().select(STR(30047), torrent_addons, useDetails=True)
+logger.debug(selection)
 
+xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection].split(':')[0])
+torrent_player = tools.getSetting("torrent_player")
+logger.debug(torrent_player)
+
+player_uri = {"Elementum" : "plugin://plugin.video.elementum",
+                    "Torrest" : "plugin://plugin.video.torrest",
+                    }
+
+xbmc.executebuiltin('RunPlugin({})'.format(player_uri[torrent_player]))
+sistema = sys.platform()
+arquitectura = platform.architecture()
+logger.debug(f"{sistema} y {arquitectura}")
+
+# player_url = "https://github.com/"
+# player_url_constructor = urljoin_partial(player_url)
+# download_url = player_url_constructor("{}/{}/{}/{}/{}/{}".format())
+# logger.debug(download_url)
+
+# torrent_player = tools.getSetting("torrent_player")
+# player_uri = {"Elementum" : f"https://github.com/{elgatito}/plugin.video.{elementum}/releases/download/{v0.1.98}/plugin.video.{elementum}-{0.1.98}.{linux_armv7}.zip",
+#                     "Torrest" : f"https://github.com/{i96751414}/plugin.video.{torrest}/releases/download/{v0.0.16}/plugin.video.{torrest}-{0.0.16}.{windows_x64}.zip",
+#                     }
+
+
+    
+#     if selection == 0:
+#         repo, plugin = "repository.thewarehouse", "plugin.video.elementum"
+#     elif selection == 1:
+#         repo, plugin = "repository.github", "plugin.video.torrest"
+#     else:
+#         sys.exit()
+    
+#     xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection])
+#     repoPath, repo_origin = path.format(repo), repoContainer.format(addonID, repo)
+#     pluginPath, plugin_origin = path.format(plugin), repoContainer.format(addonID, plugin)
+#     items = [repo, plugin]
+#     for p in items:
+#         p_path = path.format(p)
+#         p_origin = repoContainer.format(addonID, p)
+#         if not xbmcvfs.exists(p_path):
+#             try:
+#                 shutil.copytree(p_origin, p_path)
+#                 xbmc.executebuiltin('UpdateLocalAddons')
+#                 xbmc.executebuiltin('EnableAddon({})'.format(p))
+#                 xbmcgui.Dialog().ok(STR(30048), "{} {}({}) {}".format(STR(30049),items[1].replace("plugin.video.","").upper(),items[0].replace("thewarehouse","elementum"),STR(30050)))
+#                 xbmc.executebuiltin('DialogClose(all,true)')
+#                 xbmc.executebuiltin('InstallAddon({})'.format(items[1]))
+#             except Exception as e:
+#                 logger.debug(e)
+#         else:
+#             pass
+
+# Modificamos los ajustes necesarios en Elementum para que el usuario no tenga inconvenientes
 if tools.getSetting("torrent_player") == "Elementum":
     try:
         root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path').strip()
@@ -63,19 +113,6 @@ for fanart in fanarts[1]:
     
 fanart_random = random.choice(aviable_fanarts)
 logo = xbmcvfs.translatePath(os.path.join(media,"{}_logo.png")) # Usamos el método format () una sola vez para insertar el valor del nombre del logo 
-
-# Modificamos los ajustes necesarios en Elementum para que el usuario no tenga inconvenientes
-try:
-    root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path').strip()
-    xbmcaddon.Addon("plugin.video.elementum").setSetting("download_file_strategy","2")
-    xbmcaddon.Addon("plugin.video.elementum").setSettingBool("silent_stream_start",True)
-    xbmcaddon.Addon("plugin.video.elementum").setSettingInt("buffer_timeout",600)
-    if root == "" or root == "/":
-        xbmcaddon.Addon("plugin.video.elementum").setSetting("download_path","special://home/cache/elementum/")
-except Exception as e:
-    sys.exit()
-
-
 ### BLOQUE PARA LOGUEAR EN LA PAGINA https://aidoru-online.me/###
 # Preguntamos en ajustes cual es el usuario y la contraseña que brindo el usuario
 username = tools.getSetting("username")
@@ -333,7 +370,7 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
     url_router = resp.find(id="ty-button")
     url = url_constructor(url_router.find_previous_sibling("div").find("a").get("href"))
     added_by = resp.find("b", text="Added By:").find_parent("tr").text.split(':')[1]
-    
+
     if url_router.text == "Thanks":
         item = Listitem()
         item.label = STR(30061)
@@ -349,7 +386,6 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
         item.art["fanart"] = fanart_random
         item.set_callback(details_Content, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
         yield item
-    
     # Obtenemos el contenido, el nombre y el nombre del post para nombrar la locacion
     # Descargamos el archivo Torrent
     tor_content = s.get(url).content
@@ -360,13 +396,8 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
     tor_loc = link.url.split('=')[1]
     torrent = tools.downloadFile(tor_name,tor_loc,tor_content)
     img_path = xbmcvfs.translatePath(os.path.join(torrent.replace(tor_name,''),"images", ""))
-    
-    # item = Listitem()
-    # item.label = tor_name.replace('.torrent','')
-    # item.art['fanart'] = art
-    # item.art['thumb'] = thumb
-    # item.set_callback(torrent_File, torrent=torrent, img_path=img_path, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
-    # yield item
+    # Preguntamos que reproductor de Torrent esta seleccionado y dependiendo de la eleccion
+    # Si el torrent es de la categoria imagenes lo mandamos a una funcion, si es video lo reproducimos
 
     torrent_player = tools.getSetting("torrent_player")
     player_uri = {"Elementum" : "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe='')),
@@ -384,8 +415,7 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
         item.set_path(uri)
     item.art['thumb'] = "https://cdn.icon-icons.com/icons2/1508/PNG/512/bittorrent_103937.png"
     yield item
-
-
+    
     # Colocamos un valor vacio a image_file para evitar errores
     image_file = ""
     # Despues de buscar, obtener y renombrar la url, obtenemos el nombre de la imagen, el id del post, el contenido de la imagen y la descargamos
@@ -421,7 +451,6 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
                 uri_vid = pic
                 item.set_path(uri_vid)
             yield item
-    
 
 @Route.register
 def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
@@ -483,7 +512,7 @@ def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
                         oindex = images.index(img_loc)
                         logger.debug("Oindex is: {}, and the file is: {}".format(oindex,img_loc))
                         xbmc.executebuiltin('Dialog.Close(all, true)')
-                        xbmc.executebuiltin('PlayMedia({0},isPlayable=false)'.format(resume.format(oindex,info_hash)))  
+                        xbmc.executebuiltin('PlayMedia({})'.format(resume.format(oindex,info_hash)))    
                         wait(5)
                 paths.append(paths[0])
                 paths.remove(paths[0])
@@ -492,13 +521,13 @@ def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
             paths.remove(paths[0])
         if len(xbmcvfs.listdir(img_path)) >= len(images):
             break
-    
+
     # if tools.getSetting("torrent_player") == "Elementum":
     #     xbmc.executebuiltin('Action(Close)')
-    
     wait(2)
     progress.update(75, STR(30054))
     wait(2)
+    
     if not xbmcvfs.exists(path_file):
         copy_progress = xbmcgui.DialogProgress()
         copy_progress.create(STR(30055), label)
@@ -510,6 +539,7 @@ def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
             copy_progress.update((len(copied_images) * 100) // len(images), "{}: {}, {} {}".format(STR(30056),img,len(images) - len(copied_images),STR(30057)))
             wait(1)
         copy_progress.close()
+    progress.update(100, STR(30058))
     progress.close()
     return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
     
@@ -523,7 +553,6 @@ def thanks_button(plugin,url,label,art,thumb,scat_url):
     do_thanks = s.get(thanks_url)
     logger.debug(do_thanks.status_code)
     return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
-    
 
 @Resolver.register
 def show_Photos(plugin,album,pic,url,label,uri):
@@ -531,7 +560,6 @@ def show_Photos(plugin,album,pic,url,label,uri):
     uri = uri
     url = url
     plugin = plugin.extract_source(url)
-    xbmc.executebuiltin('RunPlugin({})'.format(uri))
     xbmc.executebuiltin("ShowPicture({})".format(pic))
     wait(5)
     xbmc.executebuiltin("SlideShow({},random)".format(album))
