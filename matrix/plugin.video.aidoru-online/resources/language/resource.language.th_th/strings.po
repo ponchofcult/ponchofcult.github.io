@@ -1,7 +1,7 @@
 # Kodi Media Center language file
 # Addon Name: Aidoru!Online
 # Addon id: plugin.video.aidoru-online
-# Addon Provider: JPONShow
+# Addon Provider: JPon-chō
 msgid ""
 msgstr ""
 "Project-Id-Version: XBMC Addons\n"
@@ -271,3 +271,11 @@ msgstr "ขอบคุณ {}."
 msgctxt "#30063"
 msgid "You and {} other users have already thanked {}."
 msgstr "คุณและผู้ใช้อีก {} คนได้ขอบคุณ {} แล้ว"
+
+msgctxt "#30064" 
+msgid "Click to set the subtitles - {}" 
+msgstr "คลิกเพื่อตั้งค่าคำบรรยาย - {}"
+
+msgctxt "#30065" 
+msgid "You must have a video playing for setting the subtitles." 
+msgstr "คุณต้องมีวิดีโอเล่นอยู่เพื่อตั้งค่าคำบรรยาย"

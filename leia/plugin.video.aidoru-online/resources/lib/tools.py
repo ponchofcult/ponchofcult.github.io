@@ -17,9 +17,23 @@ def getString(stringID):
     return string
 
 
-def getSetting(settingName):
-    setting=xbmcaddon.Addon().getSetting(settingName)
+def getSetting(settingName,addonID=""):
+    setting = xbmcaddon.Addon(addonID).getSetting(settingName)
     return setting
+
+
+def setSetting(setting_name,setting_value,addon_id=""):
+    if type(setting_value) == "int":
+        xbmcaddon.Addon(addon_id).setSettingInt(setting_name,setting_value)
+    elif type(setting_value) == "bool":
+        xbmcaddon.Addon(addon_id).setSettingBool(setting_name,setting_value)
+    elif type(setting_value) == "float":
+        xbmcaddon.Addon(addon_id).setSettingNumber(setting_name,setting_value)
+    elif type(setting_value) == "str":
+        xbmcaddon.Addon(addon_id).setSetting(setting_name,setting_value)
+    else:
+        xbmcaddon.Addon(addon_id).setSetting(setting_name,str(setting_value))
+    logger.debug(getSetting(setting_name,addon_id))
 
 
 def downloadFile(file_name,subdirectory_name,file_content):
@@ -82,28 +96,29 @@ def mixUserAgents():
 
 def getFileData(archive):
     with open(archive, "rb") as a:
-        file = a
-        archive = bencode.decode(a.read())
+        file = a.read()
+        logger.debug("FILE ES: {}".format(file))
+        archive = bencode.decode(file)
+        logger.debug("ARCHIVE ES: {}".format(archive))
         try:
             info_hash = hashlib.sha1(bencode.encode(archive[b'info'])).hexdigest()
-            name_bytes = archive[b'info'][b'name']
-            name = name_bytes.decode("utf-8")
-            files_bytes = archive[b'info'][b'files']
-            files = ['/'.join([file.decode('utf-8') for file in path[b'path']]) for path in files_bytes]
-            return info_hash, name, files, file 
+            logger.debug("INFO_HASH ES: {}".format(info_hash))
         except Exception as e:
-            logger.debug(e)
-            pass
-    
-@contextmanager
-def busy_spinner():
-    """
-    Show busy spinner for long operations
-    This context manager guarantees that a busy spinner will be closed
-    even in the event of an unhandled exception.
-    """
-    xbmc.executebuiltin('ActivateWindow(10138)')  # Busy spinner on
-    try:
-        yield
-    finally:
-        xbmc.executebuiltin('Dialog.Close(10138)')  # Busy spinner off
+            logger.debug("ERROR: {}".format(e))
+            info_hash = None
+        try:
+            name = archive[b'info'][b'name'].decode("utf-8") # name = name_bytes.decode("utf-8")
+            logger.debug("NAME ES: {}".format(name))
+        except Exception as e:
+            logger.debug("ERROR: {}".format(e))
+            name = None
+        try:
+            files_bytes = archive[b'info'][b'files']
+            logger.debug("FILES_BYTES ES: {}".format(files_bytes))
+            files = ['/'.join([file.decode('utf-8') for file in path[b'path']]) for path in files_bytes]
+            logger.debug("FILES ES: {}".format(files))
+        except Exception as e:
+            logger.debug("ERROR: {}".format(e))
+            files = None
+        
+        return info_hash, name, files, file

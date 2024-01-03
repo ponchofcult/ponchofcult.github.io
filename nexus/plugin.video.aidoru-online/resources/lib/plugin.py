@@ -3,100 +3,88 @@
 from __future__ import unicode_literals
 
 # noinspection PyUnresolvedReferences
-from codequick import Route, Resolver, Listitem, utils, run
-from codequick.utils import urljoin_partial, bold
-import requests
-import xbmcgui
-from bs4 import BeautifulSoup as bs
-from . import logger #logger.debug(FUNCION O VARIABLE A DEBUGUEAR)
-from . import tools
-import xbmc
-import xbmcaddon
-import xbmcvfs
 import sys
-import urllib.parse as urllib
-import random
-from random import uniform
-from time import sleep as wait
-from PIL import Image
 import os
 import re
 import shutil
-import platform
+import random
+from random import uniform
+import urllib.parse as urllib
+from time import sleep as wait
 
-STR = tools.getString #Para facilitar el llamado de strings alojados en languages
+import xbmc
+import xbmcgui
+import xbmcvfs
+import xbmcaddon
 
-addonID = xbmcaddon.Addon().getAddonInfo('id')
-torrent_addons = ["Elementum: {}".format(STR(30045)), "Torrest: {}".format(STR(30046))]
+from codequick import Route, Resolver, Listitem, utils, run
+from codequick.utils import urljoin_partial, bold
+from bs4 import BeautifulSoup as bs
+from PIL import Image
+import requests
 
+from . import logger
+from . import tools
+
+
+STR = tools.getString # Para facilitar el llamado de strings alojados en languages
+
+torrent_addons = [
+    ("Elementum",STR(30045)),
+    ("Torrest",STR(30046)),
+    ]
+
+options = ["{}: {}".format(addon[0], addon[1]) for addon in torrent_addons]
 torrent_player = tools.getSetting("torrent_player")
+
 if not torrent_player.strip():
-    selection = xbmcgui.Dialog().select(STR(30047), torrent_addons, useDetails=True)
-logger.debug(selection)
+    selection = xbmcgui.Dialog().select(STR(30047), options, useDetails=True)
+else:
+    selection = [
+        torrent_addons.index(addon) for addon in torrent_addons if addon[0] == torrent_player
+        ][0]
 
-xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection].split(':')[0])
-torrent_player = tools.getSetting("torrent_player")
-logger.debug(torrent_player)
+tools.setSetting("torrent_player",torrent_addons[selection][0])
+player_data = {
+    "Elementum" : ["plugin://plugin.video.elementum","repository.elementumorg"],
+    "Torrest" : ["plugin://plugin.video.torrest","repository.github"],
+    }
 
-player_uri = {"Elementum" : "plugin://plugin.video.elementum",
-                    "Torrest" : "plugin://plugin.video.torrest",
-                    }
+player = tools.getSetting("torrent_player")
+player_uri = player_data[player][0]
+player_id = player_data[player][0].replace('plugin://','')
+player_repo = player_data[player][1]
+addon_path = xbmcaddon.Addon().getAddonInfo('path')
+repo_origin =  xbmcvfs.translatePath(os.path.join(addon_path,"resources","repos",player_repo,""))
+repo_destiny = xbmcvfs.translatePath(os.path.join("special://home","addons",player_repo))
+installed_addons = xbmcvfs.listdir(os.path.join("special://home","addons"))[0]
 
-xbmc.executebuiltin('RunPlugin({})'.format(player_uri[torrent_player]))
-sistema = sys.platform()
-arquitectura = platform.architecture()
-logger.debug(f"{sistema} y {arquitectura}")
-
-# player_url = "https://github.com/"
-# player_url_constructor = urljoin_partial(player_url)
-# download_url = player_url_constructor("{}/{}/{}/{}/{}/{}".format())
-# logger.debug(download_url)
-
-# torrent_player = tools.getSetting("torrent_player")
-# player_uri = {"Elementum" : f"https://github.com/{elgatito}/plugin.video.{elementum}/releases/download/{v0.1.98}/plugin.video.{elementum}-{0.1.98}.{linux_armv7}.zip",
-#                     "Torrest" : f"https://github.com/{i96751414}/plugin.video.{torrest}/releases/download/{v0.0.16}/plugin.video.{torrest}-{0.0.16}.{windows_x64}.zip",
-#                     }
-
-
-    
-#     if selection == 0:
-#         repo, plugin = "repository.thewarehouse", "plugin.video.elementum"
-#     elif selection == 1:
-#         repo, plugin = "repository.github", "plugin.video.torrest"
-#     else:
-#         sys.exit()
-    
-#     xbmcaddon.Addon().setSetting("torrent_player", torrent_addons[selection])
-#     repoPath, repo_origin = path.format(repo), repoContainer.format(addonID, repo)
-#     pluginPath, plugin_origin = path.format(plugin), repoContainer.format(addonID, plugin)
-#     items = [repo, plugin]
-#     for p in items:
-#         p_path = path.format(p)
-#         p_origin = repoContainer.format(addonID, p)
-#         if not xbmcvfs.exists(p_path):
-#             try:
-#                 shutil.copytree(p_origin, p_path)
-#                 xbmc.executebuiltin('UpdateLocalAddons')
-#                 xbmc.executebuiltin('EnableAddon({})'.format(p))
-#                 xbmcgui.Dialog().ok(STR(30048), "{} {}({}) {}".format(STR(30049),items[1].replace("plugin.video.","").upper(),items[0].replace("thewarehouse","elementum"),STR(30050)))
-#                 xbmc.executebuiltin('DialogClose(all,true)')
-#                 xbmc.executebuiltin('InstallAddon({})'.format(items[1]))
-#             except Exception as e:
-#                 logger.debug(e)
-#         else:
-#             pass
-
-# Modificamos los ajustes necesarios en Elementum para que el usuario no tenga inconvenientes
-if tools.getSetting("torrent_player") == "Elementum":
+if not player_id in installed_addons: # Si el addon no está instalado 
     try:
-        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path').strip()
-        xbmcaddon.Addon("plugin.video.elementum").setSetting("download_file_strategy","2")
-        xbmcaddon.Addon("plugin.video.elementum").setSettingBool("silent_stream_start",True)
-        xbmcaddon.Addon("plugin.video.elementum").setSettingInt("buffer_timeout",600)
-        if root == "" or root == "/":
-            xbmcaddon.Addon("plugin.video.elementum").setSetting("download_path","special://home/cache/elementum/")
+        shutil.copytree(repo_origin, repo_destiny) # Copiar el repositorio 
     except Exception as e:
-        sys.exit()
+        logger.debug(e) # Mostrar el error en el logger 
+    xbmc.executebuiltin('UpdateLocalAddons') # Actualizar los addons locales 
+    status = xbmc.getCondVisibility('System.AddonIsEnabled({})'.format(player_repo))
+    if status == False:
+        xbmc.executebuiltin('EnableAddon({})'.format(player_repo)) # Habilitar el addon
+    else:
+        pass          
+else:
+    if player == "Elementum":
+        download_path = tools.getSetting("download_path",player_id).strip()
+        settings = [("download_file_strategy","2"), ("silent_stream_start",True), ("buffer_timeout",600)]
+        if download_path == "" or download_path == "/":
+            settings.append(("download_path","special://home/cache/elementum/"))
+        for setting in settings:
+            tools.setSetting(setting[0],setting[1],player_id)
+    elif player == "Torrest":
+        settings = [("buffer_timeout",600),("min_candidate_size",0),("overlay",True),("metadata_timeout",120),("show_bg_progress",True)]
+        for setting in settings:
+            tools.setSetting(setting[0],setting[1],player_id)
+        
+# Convocamos una funcion para activar el autoscroll de plot en nuestro addon
+xbmc.executebuiltin('Skin.SetBool(autoscroll)')
 
 # Definimos la particion donde esta alojado nuestro addon, creamos la particion completa a las carpetas de resources/media y resources/media/fanarts
 # Vemos que archivos o carpetas contiene la carpeta de fanarts, creamos una lista vacia, iteramos sobre la lista que nos devuelve fanarts y añadimos cada nombre de archivo a la lista que creamos
@@ -164,15 +152,15 @@ _url = url_constructor("login.php?type=login")
 response = s.post(_url, headers=headers, data=data)
 sleep(int(some_time))
 
-
 @Route.register
 def root(plugin, content_type="segment"):
     # Entramos al sitio, comprobamos si estamos logueados, si no estamos logueados aparece un popup pidiendonoslo.
     resp = bs(s.get(url).text, 'html.parser')
     sleep(int(some_time))
-    if resp.contents == []:
+    if resp.contents == [] or username == "" or password == "":
         xbmcgui.Dialog().ok(STR(30005), STR(30006))
         xbmcaddon.Addon().openSettings()
+        sys.exit()
     else:
         logged_Content = resp.find_all(class_="infobar")
         for loginfo in logged_Content: 
@@ -181,44 +169,49 @@ def root(plugin, content_type="segment"):
                 xbmcaddon.Addon().openSettings()
             else:
                 pass
-    # El primer item es un mensaje de Bienvenida al usuario.
-    item = Listitem()
-    item.label = "{}: {}".format(STR(30007),tools.getSetting("username").upper())
-    item.art["fanart"] = fanart_random
-    yield item
-
-    # Mensaje a los lindos usuarios que no me dejaran morir de hambre.
-    item = Listitem()
-    item.label = STR(30059)
-    item.info["plot"] = STR(30060).format("JPonCho","https://www.buymeacoffee.com/ponchofcult")
-    item.art["thumb"] = logo.format("qr")
-    item.art["fanart"] = fanart_random
-    yield item
-    # Nos envia a la opcion para buscar el contenido deseado
-    item = Listitem()
-    item.label = STR(30008)
-    item.art["thumb"] = logo.format("search")
-    item.art["fanart"] = fanart_random
-    item.set_callback(search_Content)
-    yield item
-
-    # Hacemos una lista de tuplas, con dos elementos relacionados en cada una, nombre completo de la compañia y nombre abreviado que se pone en la URL. Accedemos a el segun los necesitemos.
-    categories = [
-        (STR(30009),"Show+All","all-content"),
-        ("48 Group Family","48G","48g"),
-        ("Hello! Project","H!P","h!p"),
-        ("Stardust Planet","Stardust","stapla"),
-        (STR(30044),"Other","others")]
-
-    for pcat in categories:
+    
+        # El primer item es un mensaje de Bienvenida al usuario.
         item = Listitem()
-        item.label = pcat[0]
-        linkpart = "get_ttable.php?pcat={}&typ=both".format(pcat[1])
-        pcat_url = url_constructor(linkpart)
-        item.art["thumb"] = logo.format(pcat[2])
+        item.label = "{}: {}".format(STR(30007),tools.getSetting("username").upper())
         item.art["fanart"] = fanart_random
-        item.set_callback(sub_Categories, pcat_url=pcat_url)
         yield item
+
+        # Mensaje a los lindos usuarios que no me dejaran morir de hambre.
+        item = Listitem()
+        item.label = STR(30059)
+        item.info["plot"] = STR(30060).format("JPon-chō","https://www.buymeacoffee.com/ponchofcult")
+        item.art["thumb"] = logo.format("qr")
+        item.art["fanart"] = fanart_random
+        yield item
+        # Nos envia a la opcion para buscar el contenido deseado
+        item = Listitem()
+        item.label = STR(30008)
+        item.art["thumb"] = logo.format("search")
+        item.art["fanart"] = fanart_random
+        item.set_callback(search_Content)
+        yield item
+
+        # Hacemos una lista de tuplas, con dos elementos relacionados en cada una, nombre completo de la compañia y nombre abreviado que se pone en la URL. Accedemos a el segun los necesitemos.
+        categories = [
+            (STR(30009),"Show+All","all-content"),
+            ("48 Group Family","48G","48g"),
+            ("Hello! Project","H!P","h!p"),
+            ("Stardust Planet","Stardust","stapla"),
+            (STR(30044),"Other","others")]
+
+        for pcat in categories:
+            item = Listitem()
+            item.label = pcat[0]
+            linkpart = "get_ttable.php?pcat={}&typ=both".format(pcat[1])
+            pcat_url = url_constructor(linkpart)
+            item.art["thumb"] = logo.format(pcat[2])
+            item.art["fanart"] = fanart_random
+            item.set_callback(sub_Categories, pcat_url=pcat_url)
+            yield item
+    
+    if not player_id in installed_addons: # Si el addon no está instalado 
+        xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
+        xbmc.executebuiltin('RunPlugin({})'.format(player_uri)) # Ejecutar el plugin
 
 
 @Route.register
@@ -291,7 +284,9 @@ def all_Content(plugin, scat_url):
             logger.debug(e)
             last_activity = ""
         
-        item.info["plot"] = "| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(seeds,leechers,added_by,description,total_size,category,date_added,last_activity,completed,views,hits)
+        item.info["plot"] = "| {} | {} | {} | {} | {} | {} | {} | {} | {} | {} | {} |".format(
+            seeds,leechers,added_by,description,total_size,category,date_added,last_activity,completed,views,hits
+            )
 
         # Inicializar art_link y thumb_link con un valor por defecto y verificar si fanarts tiene algún elemento.
         # Asignamos el valor de la imagen al ultimo elemento de fanarts, si fanarts esta vacio se le asigna el primer elemento de thumbnails.
@@ -315,8 +310,15 @@ def all_Content(plugin, scat_url):
         elif covers:
             art_link = covers[0].get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
             item.art['fanart'] = art_link
-            
-        item.set_callback(details_Content, url=url, label=item.label, art=art_link, thumb=thumb_link, scat_url=scat_url)
+        item.set_callback(
+            details_Content,
+            url=url,
+            label=item.label,
+            art=art_link,
+            thumb=thumb_link,
+            scat_url=scat_url,
+            info_plot=item.info['plot'],
+            size=total_size)
         yield item
         
     # Para ir a la siguiente pagina encontramos todas las etiquetas "p" con align="center" y de esa lista buscamos el ultimo elemento con etiqueta "a" con class="page-link" y adquirimos el numero de data-pagenum
@@ -358,18 +360,20 @@ def all_Content(plugin, scat_url):
     
        
 @Route.register
-def details_Content(plugin,url,label,art,thumb,scat_url):
+def details_Content(plugin,url,label,art,thumb,scat_url,info_plot,size):
     label = label
     # Construimos la URL y buscamos las imagenes.
     link = s.get(url_constructor(url))
     sleep(int(some_time))
-    resp = bs(link.text, 'html.parser')
-    covers = resp.find_all(class_="image-link")
-    images = resp.find_all(class_="torrent-image")
+    html = bs(link.text, 'html.parser')
+    covers = html.find_all(class_="image-link")
+    logger.debug("ESTOS SERIAN LOS COVER O PORTADAS QUE ENCUENTRA: {}".format(covers))
+    images = html.find_all(class_="torrent-image")
+    logger.debug("ESTAS SERIAN LAS IMAGENES QUE ENCUENTRA: {}".format(images))
     #Buscamos como referencia la etiqueta con id ty-button y en el div anterior obtenemos el enlace href al archivo Torrent que se encuentra en 'a'
-    url_router = resp.find(id="ty-button")
+    url_router = html.find(id="ty-button")
     url = url_constructor(url_router.find_previous_sibling("div").find("a").get("href"))
-    added_by = resp.find("b", text="Added By:").find_parent("tr").text.split(':')[1]
+    added_by = html.find("b", text="Added By:").find_parent("tr").text.split(':')[1]
 
     if url_router.text == "Thanks":
         item = Listitem()
@@ -377,15 +381,16 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
         item.info["plot"] = STR(30062).format(added_by)
         item.art["thumb"] = logo.format("thanksbutton")
         item.art["fanart"] = fanart_random
-        item.set_callback(thanks_button, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+        item.set_callback(thanks_button, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url, info_plot=info_plot, size=size)
         yield item
     else:
         item = Listitem()
         item.label = STR(30063).format(url_router.text.replace(' Thanks',''),added_by)
         item.art["thumb"] = logo.format("thankssupport")
         item.art["fanart"] = fanart_random
-        item.set_callback(details_Content, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+        item.set_callback(details_Content, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url, info_plot=info_plot, size=size)
         yield item
+        
     # Obtenemos el contenido, el nombre y el nombre del post para nombrar la locacion
     # Descargamos el archivo Torrent
     tor_content = s.get(url).content
@@ -395,99 +400,128 @@ def details_Content(plugin,url,label,art,thumb,scat_url):
     sleep(int(some_time))
     tor_loc = link.url.split('=')[1]
     torrent = tools.downloadFile(tor_name,tor_loc,tor_content)
-    img_path = xbmcvfs.translatePath(os.path.join(torrent.replace(tor_name,''),"images", ""))
+    files_path = xbmcvfs.translatePath(os.path.join(torrent.replace(tor_name,''),"files", ""))
+    
     # Preguntamos que reproductor de Torrent esta seleccionado y dependiendo de la eleccion
     # Si el torrent es de la categoria imagenes lo mandamos a una funcion, si es video lo reproducimos
-
     torrent_player = tools.getSetting("torrent_player")
-    player_uri = {"Elementum" : "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe='')),
-                    "Torrest" : "plugin://plugin.video.torrest/play_path?path={}".format(torrent),
-                    }
+    player_uri = {
+        "Elementum" : "plugin://plugin.video.elementum/play/?uri={}".format(urllib.quote_plus(torrent, safe='')),
+        "Torrest" : "plugin://plugin.video.torrest/play_path?path={}".format(torrent),
+        }
     
     item = Listitem()
     if "&scat=7" in scat_url:
         item.label = "{} {}".format(STR(30051),label)
-        item.set_callback(download_Images, torrent=torrent, img_path=img_path, url=link.url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+        item.set_callback(
+            download_Images,
+            torrent=torrent,
+            files_path=files_path,
+            url=link.url,
+            label=label,
+            art=art,
+            thumb=thumb,
+            scat_url=scat_url,
+            info_plot=info_plot,
+            size=size
+            )
+    elif "&subbed=1" in scat_url and "kB" in size:
+        item.label = label
+        item.set_callback(
+        download_Subtitles,
+            torrent=torrent,
+            files_path=files_path,
+            url=link.url,
+            label=label,
+            art=art,
+            thumb=thumb,
+            scat_url=scat_url,
+            info_plot=info_plot,
+            size=size
+        )
     else:
         item.label = label
         uri = player_uri[torrent_player]
         logger.debug("URI: {}".format(uri))
         item.set_path(uri)
     item.art['thumb'] = "https://cdn.icon-icons.com/icons2/1508/PNG/512/bittorrent_103937.png"
+    item.info['plot'] = info_plot
     yield item
     
-    # Colocamos un valor vacio a image_file para evitar errores
-    image_file = ""
     # Despues de buscar, obtener y renombrar la url, obtenemos el nombre de la imagen, el id del post, el contenido de la imagen y la descargamos
-    for image in covers + images:
-        if image in covers:
-            url = image.get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
-        else:
-            url = image.get("data-imgurl").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
+    if covers or images:
+        for image in covers + images:
+            if image in covers:
+                url = image.get("src").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
+            elif image in images:
+                url = image.get("data-imgurl").replace('640x480q90', '4032x3024q90').replace('/th/','/img/')
  
-        img_content = s.get(url).content
-        sleep(int(some_time))
-        img_name = "{}.jpg".format(url.split("/")[-1].replace('.jpg',''))
-        img_gallery = "{}/images/".format(link.url.split('=')[1])
-        image_file = tools.downloadFile(img_name, img_gallery, img_content)
+            img_content = s.get(url).content
+            sleep(int(some_time))
+            img_name = "{}.jpg".format(url.split("/")[-1].replace('.jpg',''))
+            img_gallery = os.path.join(link.url.split('=')[1],"files","")
+            image_file = tools.downloadFile(img_name, img_gallery, img_content)
 
-    if not image_file == "":
-        album = image_file.replace(img_name,'')
-        all_elems = xbmcvfs.listdir(album)
-        all_images = all_elems[1]
-        all_images = [i for i in all_images if not i.endswith('.txt')]
+    all_arch = xbmcvfs.listdir(files_path)
+    all_files = all_arch[1]
+    all_files = [i for i in all_files if not i.endswith('.txt')]
 
-        for image in all_images:
+    if all_files:
+        for file in all_files:
+            logger.debug(file)
             item = Listitem()
-            pic = xbmcvfs.translatePath(os.path.join(album,image))
-            if image.endswith(('.jpg','.jpeg', '.jfif', '.png', '.tif', '.tiff', '.gif', '.bmp', '.heif', '.raw')):
-                item.label = "{} {}".format(STR(30028),image).replace('.jpg','').replace('.jpeg','').replace('.jfif','').replace('.png','').replace('.tif','').replace('.tiff','').replace('.gif','').replace('.bmp','').replace('.heif','').replace('.raw','')
-                item.set_callback(show_Photos, album=album, pic=pic, url=url, label=item.label, uri="")   
-                item.art['thumb'] = pic
-                item.art['fanart'] = pic
-            else:
-                item.label = image
-                item.art['thumb'] = xbmcvfs.translatePath(os.path.join(album,all_images[3]))
-                uri_vid = pic
+            file_path = xbmcvfs.translatePath(os.path.join(files_path,file))
+            subs_formats = ('.srt', '.ssa', '.vtt', '.sub', '.ass')
+            image_formats = ('.jpg','.jpeg', '.jfif', '.png', '.tif', '.tiff', '.gif', '.bmp', '.heif', '.raw')
+            video_formats = ('.mp4', '.avi', '.mov', '.wmv', '.flv', '.webm', '.mkv', '.divx', '.h264', '.xvid', '.rm', '.ts', '.mpeg', 
+                             '.mpg', '.mpe', '.m1v', '.m2v', '.mp2', '.mp3', '.mpa', '.mpv','.m4v', '.3gp', '.3g2', '.ogv', '.ogg')
+            
+            if file.endswith(image_formats):
+                item.label = "{} {}".format(STR(30028),file.split('.')[0])
+                item.set_callback(show_Photos, album=files_path, pic=file_path, url=url, label=item.label, uri="")   
+                item.art['thumb'] = file_path
+                item.art['fanart'] = file_path
+            elif file.endswith(subs_formats):
+                item.label = STR(30064).format(file)
+                item.info['plot'] = STR(30065)
+                item.set_callback(set_Subtitle, file_path=file_path,scat_url=scat_url)
+            elif file.endswith(video_formats):
+                item.label = file
+                item.art['thumb'] = xbmcvfs.translatePath(os.path.join(files_path,all_files[3]))
+                uri_vid = file_path
                 item.set_path(uri_vid)
             yield item
+    
 
 @Route.register
-def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
-    progress = xbmcgui.DialogProgress()
+def set_Subtitle(plugin,file_path,scat_url):
+    xbmc.Player().setSubtitles(file_path)
+    return all_Content(plugin,scat_url=scat_url)
+
+@Route.register
+def download_Images(plugin,torrent,files_path,url,art,thumb,label,scat_url,info_plot,size):
+    progress = xbmcgui.DialogProgressBG()
     progress.create(STR(30053),label)
     progress.update(25, STR(30054))
 
     info_hash = tools.getFileData(torrent)[0]
     dir_name = tools.getFileData(torrent)[1]
     images = tools.getFileData(torrent)[2]
-    
-    path_file = xbmcvfs.translatePath(os.path.join(img_path,images[-1].split('/')[-1]))
-    
-    if not xbmcvfs.exists(path_file):
-        if tools.getSetting("torrent_player") == "Elementum":
-            root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
-            uri = "plugin://plugin.video.elementum/download/?uri={}".format(urllib.quote_plus(torrent, safe=''))
-            resume = "plugin://plugin.video.elementum/download/?oindex={}&resume={}"
-            xbmc.executebuiltin('Dialog.Close(all, true)')
-            xbmc.executebuiltin('PlayMedia({})'.format(uri))
-            wait(5)
-            # xbmc.executebuiltin('Action(Close)')
-            # wait(2)
-            
-            
-        elif tools.getSetting("torrent_player") == "Torrest":
-            root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
-            uri = "plugin://plugin.video.torrest/play_path?path={}&download=true&buffer=false".format(torrent)
-            download = "plugin://plugin.video.torrest/torrents/{}/download".format(info_hash)
+    torrent_content = tools.getFileData(torrent)[3]
 
-            xbmc.executebuiltin('RunPlugin("{}")'.format(uri))
-            wait(2)
-            xbmc.executebuiltin('RunPlugin("{}")'.format(download))
-            wait(2)
-    else:
-        pass
-
+    if tools.getSetting("torrent_player") == "Elementum":
+        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
+        uri = "http://127.0.0.1:65220/download?uri={}&background=true".format(urllib.quote_plus(torrent, safe=''))
+        resume = "http://127.0.0.1:65220/download/?oindex={}&resume={}"
+        add_torrent = requests.get(uri, headers=headers)
+        
+    elif tools.getSetting("torrent_player") == "Torrest":
+        root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
+        uri = "http://127.0.0.1:61235/add/torrent"
+        files = {"torrent": torrent_content}
+        params = {"ignore_duplicate": "false","download": "true"}
+        response = requests.post(uri, files=files, params=params)
+        
     paths = []
     images_toCopy = []
     for image in images:
@@ -511,40 +545,69 @@ def download_Images(plugin,torrent,img_path,url,art,thumb,label,scat_url):
                     if img_loc in images:
                         oindex = images.index(img_loc)
                         logger.debug("Oindex is: {}, and the file is: {}".format(oindex,img_loc))
-                        xbmc.executebuiltin('Dialog.Close(all, true)')
-                        xbmc.executebuiltin('PlayMedia({})'.format(resume.format(oindex,info_hash)))    
+                        download_files = requests.get(resume.format(oindex,info_hash), headers=headers)
                         wait(5)
                 paths.append(paths[0])
                 paths.remove(paths[0])
         else:
             images_toCopy.append(paths[0])
             paths.remove(paths[0])
-        if len(xbmcvfs.listdir(img_path)) >= len(images):
+        if len(xbmcvfs.listdir(files_path)) >= len(images):
             break
 
-    # if tools.getSetting("torrent_player") == "Elementum":
-    #     xbmc.executebuiltin('Action(Close)')
-    wait(2)
     progress.update(75, STR(30054))
     wait(2)
     
-    if not xbmcvfs.exists(path_file):
-        copy_progress = xbmcgui.DialogProgress()
-        copy_progress.create(STR(30055), label)
-        copied_images = []
-        for img in images_toCopy:
-            shutil.copy(img,img_path)
-            copied_images.append(img)
-            logger.debug(copied_images)
-            copy_progress.update((len(copied_images) * 100) // len(images), "{}: {}, {} {}".format(STR(30056),img,len(images) - len(copied_images),STR(30057)))
-            wait(1)
-        copy_progress.close()
+    copy_progress = xbmcgui.DialogProgress()
+    copy_progress.create(STR(30055), label)
+    copied_images = []
+    for img in images_toCopy:
+        shutil.copy(img,files_path)
+        copied_images.append(img)
+        logger.debug(copied_images)
+        copy_progress.update((len(copied_images) * 100) // len(images), "{}: {}, {} {}".format(STR(30056),img,len(images) - len(copied_images),STR(30057)))
+        wait(1)
+    copy_progress.close()
     progress.update(100, STR(30058))
     progress.close()
-    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
     
+    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url, info_plot=info_plot, size=size)
+    
+
 @Route.register
-def thanks_button(plugin,url,label,art,thumb,scat_url):
+def download_Subtitles(plugin,torrent,files_path,url,art,thumb,label,scat_url,info_plot,size):
+    # Aquí puedes descargar los subtítulos y guardarlos en una carpeta
+    info_hash = tools.getFileData(torrent)[0]
+    name = tools.getFileData(torrent)[1]
+    torrent_content = tools.getFileData(torrent)[3]
+
+    if tools.getSetting("torrent_player") == "Elementum":
+        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
+        uri = "http://127.0.0.1:65220/download?uri={}&background=true".format(urllib.quote_plus(torrent, safe=''))
+        response = requests.get(uri, headers=headers)
+    elif tools.getSetting("torrent_player") == "Torrest":
+        root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
+        uri = "http://127.0.0.1:61235/add/torrent"
+        files = {"torrent": torrent_content}
+        params = {"ignore_duplicate": "false","download": "true"}
+        response = requests.post(uri, files=files, params=params)
+    
+    route = xbmcvfs.translatePath(os.path.join(root,name))
+    logger.debug("RUTA DE LA GARNACHA: {}".format(route))
+    sub_dst = xbmcvfs.translatePath(files_path)
+    try:
+        xbmcvfs.mkdirs(sub_dst)
+        logger.debug("Directory {} created".format(sub_dst))
+    except OSError as error:
+        logger.debug(f"ERROR al crear el directorio: {error}")
+    wait(5)
+    shutil.copy(route,files_path)
+
+    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url, info_plot=info_plot, size=size)
+   
+
+@Route.register
+def thanks_button(plugin,url,label,art,thumb,scat_url,info_plot,size):
     id = url.split('?')[1]
     logger.debug(f"URL: {url}")
     logger.debug(f"ID: {id}")
@@ -552,7 +615,8 @@ def thanks_button(plugin,url,label,art,thumb,scat_url):
     logger.debug(f"URL DE THANKS BUTTON: {thanks_url}")
     do_thanks = s.get(thanks_url)
     logger.debug(do_thanks.status_code)
-    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url)
+    return details_Content(plugin=plugin, url=url, label=label, art=art, thumb=thumb, scat_url=scat_url, info_plot=info_plot, size=size)
+
 
 @Resolver.register
 def show_Photos(plugin,album,pic,url,label,uri):
@@ -612,4 +676,3 @@ def page_Finder(plugin, url):
     p = "&p={}".format(page)
     url = url_constructor("{}{}".format(url,p))
     return all_Content(plugin, scat_url=url)
-
