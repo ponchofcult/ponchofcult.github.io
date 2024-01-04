@@ -1,15 +1,11 @@
-import xbmc
 import xbmcaddon
 import xbmcvfs
 from . import logger
 import os
 import re
-from contextlib import contextmanager
-import urllib.parse as urllib
 import random
 import bencode
 import hashlib
-import unicodedata
 
 
 def getString(stringID):
@@ -97,26 +93,20 @@ def mixUserAgents():
 def getFileData(archive):
     with open(archive, "rb") as a:
         file = a.read()
-        logger.debug("FILE ES: {}".format(file))
         archive = bencode.decode(file)
-        logger.debug("ARCHIVE ES: {}".format(archive))
         try:
             info_hash = hashlib.sha1(bencode.encode(archive[b'info'])).hexdigest()
-            logger.debug("INFO_HASH ES: {}".format(info_hash))
         except Exception as e:
             logger.debug("ERROR: {}".format(e))
             info_hash = None
         try:
             name = archive[b'info'][b'name'].decode("utf-8") # name = name_bytes.decode("utf-8")
-            logger.debug("NAME ES: {}".format(name))
         except Exception as e:
             logger.debug("ERROR: {}".format(e))
             name = None
         try:
             files_bytes = archive[b'info'][b'files']
-            logger.debug("FILES_BYTES ES: {}".format(files_bytes))
             files = ['/'.join([file.decode('utf-8') for file in path[b'path']]) for path in files_bytes]
-            logger.debug("FILES ES: {}".format(files))
         except Exception as e:
             logger.debug("ERROR: {}".format(e))
             files = None

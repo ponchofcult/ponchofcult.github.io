@@ -29,6 +29,7 @@ from . import tools
 
 STR = tools.getString # Para facilitar el llamado de strings alojados en languages
 
+
 torrent_addons = [
     ("Elementum",STR(30045)),
     ("Torrest",STR(30046)),
@@ -59,8 +60,11 @@ repo_origin =  xbmcvfs.translatePath(os.path.join(addon_path,"resources","repos"
 repo_destiny = xbmcvfs.translatePath(os.path.join("special://home","addons",player_repo))
 installed_addons = xbmcvfs.listdir(os.path.join("special://home","addons"))[0]
 
-if not player_id in installed_addons: # Si el addon no está instalado 
+logger.debug(installed_addons)
+
+if not player_id in installed_addons:
     try:
+        logger.debug("nomas nada")
         shutil.copytree(repo_origin, repo_destiny) # Copiar el repositorio 
     except Exception as e:
         logger.debug(e) # Mostrar el error en el logger 
@@ -70,18 +74,24 @@ if not player_id in installed_addons: # Si el addon no está instalado
         xbmc.executebuiltin('EnableAddon({})'.format(player_repo)) # Habilitar el addon
     else:
         pass          
-else:
+elif player_id in installed_addons:
     if player == "Elementum":
         download_path = tools.getSetting("download_path",player_id).strip()
         settings = [("download_file_strategy","2"), ("silent_stream_start",True), ("buffer_timeout",600)]
         if download_path == "" or download_path == "/":
             settings.append(("download_path","special://home/cache/elementum/"))
         for setting in settings:
-            tools.setSetting(setting[0],setting[1],player_id)
+            if not tools.getSetting(setting[0],player_id) == setting[1]:
+                tools.setSetting(setting[0],setting[1],player_id)
+            else:
+                pass
     elif player == "Torrest":
         settings = [("buffer_timeout",600),("min_candidate_size",0),("overlay",True),("metadata_timeout",120),("show_bg_progress",True)]
         for setting in settings:
-            tools.setSetting(setting[0],setting[1],player_id)
+            if not tools.getSetting(setting[0],player_id) == setting[1]:
+                tools.setSetting(setting[0],setting[1],player_id)
+            else:
+                pass
         
 # Convocamos una funcion para activar el autoscroll de plot en nuestro addon
 xbmc.executebuiltin('Skin.SetBool(autoscroll)')
@@ -101,6 +111,7 @@ for fanart in fanarts[1]:
     
 fanart_random = random.choice(aviable_fanarts)
 logo = xbmcvfs.translatePath(os.path.join(media,"{}_logo.png")) # Usamos el método format () una sola vez para insertar el valor del nombre del logo 
+
 ### BLOQUE PARA LOGUEAR EN LA PAGINA https://aidoru-online.me/###
 # Preguntamos en ajustes cual es el usuario y la contraseña que brindo el usuario
 username = tools.getSetting("username")
@@ -212,6 +223,7 @@ def root(plugin, content_type="segment"):
     if not player_id in installed_addons: # Si el addon no está instalado 
         xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
         xbmc.executebuiltin('RunPlugin({})'.format(player_uri)) # Ejecutar el plugin
+        wait (5)
 
 
 @Route.register
@@ -509,15 +521,19 @@ def download_Images(plugin,torrent,files_path,url,art,thumb,label,scat_url,info_
     images = tools.getFileData(torrent)[2]
     torrent_content = tools.getFileData(torrent)[3]
 
-    if tools.getSetting("torrent_player") == "Elementum":
-        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
-        uri = "http://127.0.0.1:65220/download?uri={}&background=true".format(urllib.quote_plus(torrent, safe=''))
-        resume = "http://127.0.0.1:65220/download/?oindex={}&resume={}"
+    if player == "Elementum":
+        root = tools.getSetting('download_path',player_id)
+        ip = tools.getSetting('remote_host',player_id)
+        port = tools.getSetting('remote_port',player_id)
+        uri = "http://{}:{}/download?uri={}&background=true".format(ip,port,urllib.quote_plus(torrent, safe=''))
+        resume = "http://{}:{}/download/?oindex={}&resume={}"
         add_torrent = requests.get(uri, headers=headers)
         
-    elif tools.getSetting("torrent_player") == "Torrest":
-        root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
-        uri = "http://127.0.0.1:61235/add/torrent"
+    elif player == "Torrest":
+        root = tools.getSetting('s:download_path',player_id)
+        ip = tools.getSetting('service_ip',player_id)
+        port = tools.getSetting('port',player_id)
+        uri = "http://{}:{}/add/torrent".format(ip,port)
         files = {"torrent": torrent_content}
         params = {"ignore_duplicate": "false","download": "true"}
         response = requests.post(uri, files=files, params=params)
@@ -545,7 +561,7 @@ def download_Images(plugin,torrent,files_path,url,art,thumb,label,scat_url,info_
                     if img_loc in images:
                         oindex = images.index(img_loc)
                         logger.debug("Oindex is: {}, and the file is: {}".format(oindex,img_loc))
-                        download_files = requests.get(resume.format(oindex,info_hash), headers=headers)
+                        download_files = requests.get(resume.format(ip,port,oindex,info_hash), headers=headers)
                         wait(5)
                 paths.append(paths[0])
                 paths.remove(paths[0])
@@ -581,13 +597,18 @@ def download_Subtitles(plugin,torrent,files_path,url,art,thumb,label,scat_url,in
     name = tools.getFileData(torrent)[1]
     torrent_content = tools.getFileData(torrent)[3]
 
-    if tools.getSetting("torrent_player") == "Elementum":
-        root = xbmcaddon.Addon('plugin.video.elementum').getSetting('download_path')
-        uri = "http://127.0.0.1:65220/download?uri={}&background=true".format(urllib.quote_plus(torrent, safe=''))
-        response = requests.get(uri, headers=headers)
-    elif tools.getSetting("torrent_player") == "Torrest":
-        root = xbmcaddon.Addon('plugin.video.torrest').getSetting('s:download_path')
-        uri = "http://127.0.0.1:61235/add/torrent"
+    if player == "Elementum":
+        root = tools.getSetting('download_path',player_id)
+        ip = tools.getSetting('remote_host',player_id)
+        port = tools.getSetting('remote_port',player_id)
+        uri = "http://{}:{}/download?uri={}&background=true".format(ip,port,urllib.quote_plus(torrent, safe=''))
+        add_torrent = requests.get(uri, headers=headers)
+        
+    elif player == "Torrest":
+        root = tools.getSetting('s:download_path',player_id)
+        ip = tools.getSetting('service_ip',player_id)
+        port = tools.getSetting('port',player_id)
+        uri = "http://{}:{}/add/torrent".format(ip,port)
         files = {"torrent": torrent_content}
         params = {"ignore_duplicate": "false","download": "true"}
         response = requests.post(uri, files=files, params=params)
@@ -599,7 +620,7 @@ def download_Subtitles(plugin,torrent,files_path,url,art,thumb,label,scat_url,in
         xbmcvfs.mkdirs(sub_dst)
         logger.debug("Directory {} created".format(sub_dst))
     except OSError as error:
-        logger.debug(f"ERROR al crear el directorio: {error}")
+        logger.debug(f"ERROR creating the directory: {error}")
     wait(5)
     shutil.copy(route,files_path)
 
