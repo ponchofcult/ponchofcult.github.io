@@ -5,6 +5,8 @@
         <setting label="30003" type="text"   id="username" default=""/>
         <setting label="30004" type="text"   id="password" option="hidden"  enable="!eq(-1,)" default=""/>
         <setting type="sep"/>
+        <setting label="Sign-up: https://aidoru-online.me/login.php?type=signup"/>
+        <setting type="sep"/>
         <setting id="torrent_player" type="select" label="Torrent Player" values="Elementum|Torrest| " default=" "/>
         <setting id="debug" type="bool" label="30001" default="false"/>
     </category>
