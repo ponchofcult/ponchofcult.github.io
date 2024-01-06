@@ -70,11 +70,11 @@ msgstr "TV"
 
 msgctxt "#30013"
 msgid "Performance"
-msgstr "Presentación"
+msgstr "Show musical"
 
 msgctxt "#30014"
 msgid "PV"
-msgstr "VM"
+msgstr "Videoclip"
 
 msgctxt "#30015"
 msgid "Webstream"

@@ -221,7 +221,12 @@ def root(plugin, content_type="segment"):
             yield item
     
     if not player_id in installed_addons: # Si el addon no está instalado
+        xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
+        wait(2)
+        xbmc.executebuiltin('RunPlugin({})'.format(player_uri))
+        wait(1)
         xbmc.executebuiltin('InstallAddon({})'.format(player_id))
+
         # xbmc.executebuiltin('SendClick(11)'), wait(2), xbmcgui.Dialog().ok("Add-on Install", "The addon was not present. Please wait for installation to finish.")
         # xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
         # xbmc.executebuiltin('RunPlugin({})'.format(player_uri)) # Ejecutar el plugin
