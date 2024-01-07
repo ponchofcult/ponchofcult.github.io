@@ -279,3 +279,11 @@ msgstr "字幕を設定するにはクリック - {}"
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "字幕を設定するにはビデオを再生している必要があります。"
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "アドオンをインストールできませんでした。"
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "アドオンのセクションに移動し、リポジトリからインストールを選択し、リポジトリ{}を選択し、ビデオアドオンに移動して{}をインストールします。"

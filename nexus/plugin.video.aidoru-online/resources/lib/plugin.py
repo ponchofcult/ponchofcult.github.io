@@ -163,83 +163,75 @@ response = s.post(_url, headers=headers, data=data)
 sleep(int(some_time))
 
 
-if not player_id in installed_addons:
-    @Route.register
-    def root(plugin, content_type="segment"):
+
+
+@Route.register
+def root(plugin, content_type="segment"):
+    # Entramos al sitio, comprobamos si estamos logueados, si no estamos logueados aparece un popup pidiendonoslo.
+    resp = bs(s.get(url).text, 'html.parser')
+    sleep(int(some_time))
+    if resp.contents == [] or username == "" or password == "":
+        xbmcgui.Dialog().ok(STR(30005), STR(30006))
+        xbmcaddon.Addon().openSettings()
+        sys.exit()
+    else:
+        logged_Content = resp.find_all(class_="infobar")
+        for loginfo in logged_Content: 
+            if not "You are logged in as: {}".format(username) in str(loginfo):
+                xbmcgui.Dialog().ok(STR(30005), STR(30006))
+                xbmcaddon.Addon().openSettings()
+            else:
+                pass
+    
+        # El primer item es un mensaje de Bienvenida al usuario.
+        item = Listitem()
+        item.label = "{}: {}".format(STR(30007),tools.getSetting("username").upper())
+        item.art["fanart"] = fanart_random
+        yield item
+
+        # Mensaje a los lindos usuarios que no me dejaran morir de hambre.
+        item = Listitem()
+        item.label = STR(30059)
+        item.info["plot"] = STR(30060).format("JPon-chō","https://www.buymeacoffee.com/ponchofcult")
+        item.art["thumb"] = logo.format("qr")
+        item.art["fanart"] = fanart_random
+        yield item
+        # Nos envia a la opcion para buscar el contenido deseado
+        item = Listitem()
+        item.label = STR(30008)
+        item.art["thumb"] = logo.format("search")
+        item.art["fanart"] = fanart_random
+        item.set_callback(search_Content)
+        yield item
+
+        # Hacemos una lista de tuplas, con dos elementos relacionados en cada una, nombre completo de la compañia y nombre abreviado que se pone en la URL. Accedemos a el segun los necesitemos.
+        categories = [
+            (STR(30009),"Show+All","all-content"),
+            ("48 Group Family","48G","48g"),
+            ("Hello! Project","H!P","h!p"),
+            ("Stardust Planet","Stardust","stapla"),
+            (STR(30044),"Other","others")]
+
+        for pcat in categories:
+            item = Listitem()
+            item.label = pcat[0]
+            linkpart = "get_ttable.php?pcat={}&typ=both".format(pcat[1])
+            pcat_url = url_constructor(linkpart)
+            item.art["thumb"] = logo.format(pcat[2])
+            item.art["fanart"] = fanart_random
+            item.set_callback(sub_Categories, pcat_url=pcat_url)
+            yield item
+    
+    if not player_id in installed_addons: # Si el addon no está instalado
         xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
         wait(2)
         xbmc.executebuiltin('RunPlugin({})'.format(player_uri))
-        wait(1)
-        xbmc.executebuiltin('InstallAddon({})'.format(player_id))
-else:
-    @Route.register
-    def root(plugin, content_type="segment"):
-        # Entramos al sitio, comprobamos si estamos logueados, si no estamos logueados aparece un popup pidiendonoslo.
-        resp = bs(s.get(url).text, 'html.parser')
-        sleep(int(some_time))
-        if resp.contents == [] or username == "" or password == "":
-            xbmcgui.Dialog().ok(STR(30005), STR(30006))
-            xbmcaddon.Addon().openSettings()
-            sys.exit()
-        else:
-            logged_Content = resp.find_all(class_="infobar")
-            for loginfo in logged_Content: 
-                if not "You are logged in as: {}".format(username) in str(loginfo):
-                    xbmcgui.Dialog().ok(STR(30005), STR(30006))
-                    xbmcaddon.Addon().openSettings()
-                else:
-                    pass
-        
-            # El primer item es un mensaje de Bienvenida al usuario.
-            item = Listitem()
-            item.label = "{}: {}".format(STR(30007),tools.getSetting("username").upper())
-            item.art["fanart"] = fanart_random
-            yield item
-
-            # Mensaje a los lindos usuarios que no me dejaran morir de hambre.
-            item = Listitem()
-            item.label = STR(30059)
-            item.info["plot"] = STR(30060).format("JPon-chō","https://www.buymeacoffee.com/ponchofcult")
-            item.art["thumb"] = logo.format("qr")
-            item.art["fanart"] = fanart_random
-            yield item
-            # Nos envia a la opcion para buscar el contenido deseado
-            item = Listitem()
-            item.label = STR(30008)
-            item.art["thumb"] = logo.format("search")
-            item.art["fanart"] = fanart_random
-            item.set_callback(search_Content)
-            yield item
-
-            # Hacemos una lista de tuplas, con dos elementos relacionados en cada una, nombre completo de la compañia y nombre abreviado que se pone en la URL. Accedemos a el segun los necesitemos.
-            categories = [
-                (STR(30009),"Show+All","all-content"),
-                ("48 Group Family","48G","48g"),
-                ("Hello! Project","H!P","h!p"),
-                ("Stardust Planet","Stardust","stapla"),
-                (STR(30044),"Other","others")]
-
-            for pcat in categories:
-                item = Listitem()
-                item.label = pcat[0]
-                linkpart = "get_ttable.php?pcat={}&typ=both".format(pcat[1])
-                pcat_url = url_constructor(linkpart)
-                item.art["thumb"] = logo.format(pcat[2])
-                item.art["fanart"] = fanart_random
-                item.set_callback(sub_Categories, pcat_url=pcat_url)
-                yield item
-    
-    # if not player_id in installed_addons: # Si el addon no está instalado
-    #     xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
-    #     wait(2)
-    #     xbmc.executebuiltin('RunPlugin({})'.format(player_uri))
-    #     wait(1)
-    #     xbmc.executebuiltin('InstallAddon({})'.format(player_id))
-
-        # xbmc.executebuiltin('SendClick(11)'), wait(2), xbmcgui.Dialog().ok("Add-on Install", "The addon was not present. Please wait for installation to finish.")
-        # xbmc.executebuiltin('DialogClose(all,true)') # Cerrar el diálogo
-        # xbmc.executebuiltin('RunPlugin({})'.format(player_uri)) # Ejecutar el plugin
-        # wait (5)
+        wait(2)
+        if not player_id in installed_addons:
+            xbmcgui.Dialog().ok(
+                STR(30066),
+                STR(30067).format(
+                    player_repo.replace('repository.elementumorg','ElementumOrg repository').replace('repository.github','GitHub Add-on repository'),player))
 
 
 @Route.register

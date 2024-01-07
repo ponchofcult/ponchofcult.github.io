@@ -279,3 +279,11 @@ msgstr "คลิกเพื่อตั้งค่าคำบรรยาย
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "คุณต้องมีวิดีโอเล่นอยู่เพื่อตั้งค่าคำบรรยาย"
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "ไม่สามารถติดตั้งส่วนเสริมได้"
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "ไปที่ส่วนของส่วนเสริม เลือกติดตั้งจากที่เก็บ เลือกที่เก็บ {} ไปที่ส่วนเสริมวิดีโอและติดตั้ง {}"

@@ -272,3 +272,11 @@ msgstr "Danke an {}."
 msgctxt "#30063"
 msgid "You and {} other users have already thanked {}."
 msgstr "Du und {} andere Benutzer haben {} bereits gedankt."
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "Das Addon konnte nicht installiert werden."
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "Gehe zum Addons-Bereich, wähle Installieren aus Repository, wähle das Repository {} aus, gehe zu Video-Addons und installiere {}."

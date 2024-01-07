@@ -279,3 +279,11 @@ msgstr "Clique para definir as legendas - {}"
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "Você deve ter um vídeo em reprodução para definir as legendas."
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "O addon não pôde ser instalado."
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "Vá para a seção de addons, escolha instalar do repositório, selecione o repositório {}, vá para os addons de vídeo e instale {}."

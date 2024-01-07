@@ -283,3 +283,11 @@ msgstr "点击设置字幕 - {}"
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "您必须有一个正在播放的视频才能设置字幕"
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "无法安装插件。"
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "转到插件部分，选择从存储库安装，选择存储库 {}，转到视频插件并安装 {}。"

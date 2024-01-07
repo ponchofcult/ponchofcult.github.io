@@ -281,3 +281,11 @@ msgstr "Нажмите, чтобы установить субтитры - {}"
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "Вы должны воспроизводить видео, чтобы установить субтитры."
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "Не удалось установить дополнение."
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "Перейдите в раздел дополнений, выберите установить из репозитория, выберите репозиторий {}, перейдите к видео-дополнениям и установите {}."

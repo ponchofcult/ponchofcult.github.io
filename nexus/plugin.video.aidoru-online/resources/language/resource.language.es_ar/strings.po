@@ -279,3 +279,11 @@ msgstr "Haga clic para poner los subtítulos - {}"
 msgctxt "#30065" 
 msgid "You must have a video playing for setting the subtitles." 
 msgstr "Debe tener un video reproduciéndose para poner los subtítulos."
+
+msgctxt "#30066"
+msgid "The addon could not be installed."
+msgstr "El complemento no se pudo instalar."
+
+msgctxt "#30067"
+msgid "Go to the addons section, choose install from repository, select the repository {}, go to video addons and install {}."
+msgstr "Ve a la sección de addons, elige instalar desde repositorio, selecciona el repositorio {}, ve a complementos de vídeo e instala {}."
