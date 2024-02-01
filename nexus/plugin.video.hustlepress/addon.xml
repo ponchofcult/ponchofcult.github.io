@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.hustlepress" name="Hustle Press!" version="0.0.8" provider-name="Ponchofcult">
+<addon id="plugin.video.hustlepress" name="Hustle Press!" version="0.1.0" provider-name="Ponchofcult">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0"/> -->
         <import addon="script.module.routing" version="0.2.0"/>

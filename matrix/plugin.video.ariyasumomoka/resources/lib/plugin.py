@@ -13,14 +13,32 @@ import resolveurl
 import xbmc
 import xbmcvfs
 import os
+import json
 from time import sleep as wait
 
 
+STR = tools.getString
+GS = tools.getSetting
+SS = tools.setSetting
+
 tools.setFont()
 
+video_resolutions = ["240p", "360p", "480p", "720p(HD)", "1080p(FHD)", "1440p(QHD)", "2160p(4K)", "4320p(8K)", "Auto"]
+resolution_selected = GS("video_resolution")
+video_resolution = video_resolutions.index(resolution_selected)
+youtube_selected = GS("kodion.mpd.quality.selection","plugin.video.youtube")
+inputstream_selected = GS("adaptivestream.res.max","inputstream.adaptive")
+
+SS("kodion.video.quality", 4, "plugin.video.youtube")
+SS("kodion.video.quality.mpd", True, "plugin.video.youtube")
+if youtube_selected == 4:
+    SS("kodion.mpd.quality.selection", video_resolution, "plugin.video.youtube")
+
 headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Referer": "https://www.ariyasumomoka.jp/",
 }
+
 URL = "https://www.ariyasumomoka.jp"
 url_constructor = urljoin_partial(URL)
 s = urlquick.Session()
@@ -28,9 +46,9 @@ s = urlquick.Session()
 @Route.register
 def root(plugin, content_type="segment"):
     menu_items = [
-        {"label": tools.getString(30006), "callback": get_photos, "linkpart": "/photography/"},
-        {"label": tools.getString(30007), "callback": get_videos, "linkpart": "/movie/"},
-        {"label": tools.getString(30008), "callback": get_albums, "linkpart": "/discography/"},
+        {"label": STR(30006), "callback": get_photos, "linkpart": "/photography/"},
+        {"label": STR(30007), "callback": get_videos, "linkpart": "/movie/"},
+        {"label": STR(30008), "callback": get_albums, "linkpart": "/discography/"},
     ]
     
     for item_data in menu_items:
@@ -43,7 +61,7 @@ def root(plugin, content_type="segment"):
    
 @Route.register
 def get_videos(plugin, url):
-    resp = s.get(url, headers=headers, max_age=-1)
+    resp = s.get(url, headers=headers)
     videosRoot = resp.parse("ul", attrs={"class": "movie-index"})
     videoslist = videosRoot.iterfind("li/a")
 
@@ -97,9 +115,9 @@ def get_photos(plugin, url):
         url = url_constructor(photo.get("src"))
         gallery = resp.url.replace('https://www.ariyasumomoka.jp/','').replace('/','')
         img = url.replace('https://www.ariyasumomoka.jp/images/bio/','')
-        logger.debug(url)
-        logger.debug(img)
-        image = tools.downloadFile(img,gallery,url)
+        image_response = urlquick.get(url)
+        image_content = image_response.content
+        image = tools.downloadFile(img,gallery,image_content)
         
         item = Listitem()
         item.label = img.replace('.jpg','')
@@ -114,7 +132,6 @@ def get_photos(plugin, url):
 @Route.register
 def data_Video(plugin, url, img):
     img = url_constructor(img)
-    _url = url
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"}
     resp = s.get(url, headers=headers)
     page_root = resp.parse("div", attrs={"class":"wrap"})
@@ -126,7 +143,7 @@ def data_Video(plugin, url, img):
         url = elem.find("div/div/iframe").get("src")
         item.art["thumb"] = img
         item.art["fanart"] = img
-        item.set_callback(play_Video, url=url, _url=_url)
+        item.set_callback(play_Video, url=url)
         yield item
 
 
@@ -187,7 +204,7 @@ def albums_List(plugin, url):
             item.set_callback(album_Page, url=url)
             yield item
     except RuntimeError as error:
-        xbmcgui.Dialog().ok(tools.getString(30011), tools.getString(30012))
+        xbmcgui.Dialog().ok(STR(30011), STR(30012))
         xbmc.executebuiltin('Dialog.Close(all,true)')
         
         
@@ -220,13 +237,12 @@ def album_Page(plugin, url):
                 yield item
             except AttributeError as error:
                 logger.debug(error)
-                xbmcgui.Dialog().ok(tools.getString(30014), tools.getString(30015))
+                xbmcgui.Dialog().ok(STR(30014), STR(30015))
                 xbmc.executebuiltin('Dialog.Close(all,true)')
 
 
 @Route.register
 def enter_AlbumVideo(plugin, url):
-    _url = url
     resp = s.get(url, headers=headers, max_age=-1)
     videosRoot = resp.parse("section", attrs={"class": "section section--v1"})
     videosElems = videosRoot.iterfind("div/div/div/div/div/iframe")
@@ -234,20 +250,19 @@ def enter_AlbumVideo(plugin, url):
     counter = 1
     for elem in videosElems:
         item = Listitem()
-        item.label = "{} {}".format(tools.getString(30013),str(counter))
+        item.label = "{} {}".format(STR(30013),str(counter))
         url = elem.get("src")
         id = url.replace('https://www.youtube.com/embed/','')
         img = "https://img.youtube.com/vi/{}/sddefault.jpg".format(id)
         item.art["thumb"] = img
         item.art["fanart"] = img
-        item.set_callback(play_Video, url=url, _url=_url)
+        item.set_callback(play_Video, url=url)
         counter += 1
         yield item   
         
             
 @Route.register
 def enter_AlbumPopSZT2019(plugin, url):
-    _url = url
     resp = s.get(url, headers=headers, max_age=-1)
     videosRoot = resp.parse("div", attrs={"class": "movie"})
     videosElems = videosRoot.iterfind("div/div/div/iframe")
@@ -255,27 +270,34 @@ def enter_AlbumPopSZT2019(plugin, url):
     counter = 1
     for elem in videosElems:
         item = Listitem()
-        item.label = "{} {}".format(tools.getString(30013),str(counter))
+        item.label = "{} {}".format(STR(30013),str(counter))
         url = elem.get("src")
         id = url.replace('https://www.youtube.com/embed/','')
         img = "https://img.youtube.com/vi/{}/sddefault.jpg".format(id)
         item.art["thumb"] = img
         item.art["fanart"] = img
-        item.set_callback(play_Video, url=url, _url=_url)
+        item.set_callback(play_Video, url=url)
         counter += 1
         yield item
         
 
 @Resolver.register
-def play_Video(plugin, url,_url):
+def play_Video(plugin, url):    
     if not "https://player.vimeo.com/video/" in url:
         url = url
         resolved = resolveurl.resolve(url)
+        logger.debug(resolved)
         return resolved
     else:
-        url = _url.replace('https://','')
-        xbmcgui.Dialog().ok("{}".format(tools.getString(30009)),"{} {}".format(tools.getString(30010),url))
-        xbmc.executebuiltin('Dialog.Close(all,true)')
+        id = url.split('video/')[1].split('?')[0]
+        url = "{}$${}".format(url.split('?')[0],headers["Referer"])
+        resolved = resolveurl.resolve(url)
+        
+        properties = {"inputstream" : "inputstream.adaptive","inputstream.adaptive.manifest_type" : "hls"}
+        item = {"callback": resolved, "label": f"Vimeo ID: {id}", "properties": properties}
+        listitem = Listitem.from_dict(**item)
+        return listitem
+
 
 
     

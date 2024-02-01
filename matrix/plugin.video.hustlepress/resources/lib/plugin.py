@@ -16,7 +16,21 @@ from . import logger
 from time import sleep as wait
 
 
+STR = tools.getString
+GS = tools.getSetting
+SS = tools.setSetting
+
 tools.setFont()
+
+video_resolutions = ["240p", "360p", "480p", "720p(HD)", "1080p(FHD)", "1440p(QHD)", "2160p(4K)", "4320p(8K)"]
+resolution_selected = GS("video_resolution")
+video_resolution = video_resolutions.index(resolution_selected)
+youtube_selected = GS("kodion.mpd.quality.selection","plugin.video.youtube")
+
+SS("kodion.video.quality", 4, "plugin.video.youtube")
+SS("kodion.video.quality.mpd", True, "plugin.video.youtube")
+if youtube_selected == 4:
+    SS("kodion.mpd.quality.selection", video_resolution, "plugin.video.youtube")
 
 headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
@@ -28,11 +42,11 @@ url_constructor = urljoin_partial(URL)
 @Route.register
 def root(plugin, content_type="segment"):
     item_data = [
-        {"label":tools.getString(30006), "linkpart":"/"},
-        {"label":tools.getString(30007), "linkpart":"/category/gravure/"},
-        {"label":tools.getString(30008), "linkpart":"/category/interview/"},
-        {"label":tools.getString(30009), "linkpart":"/category/feature/"},
-        {"label":tools.getString(30010), "linkpart":"/category/coumn/"},
+        {"label":STR(30006), "linkpart":"/"},
+        {"label":STR(30007), "linkpart":"/category/gravure/"},
+        {"label":STR(30008), "linkpart":"/category/interview/"},
+        {"label":STR(30009), "linkpart":"/category/feature/"},
+        {"label":STR(30010), "linkpart":"/category/coumn/"},
     ]
     
     for data in item_data:
@@ -122,7 +136,7 @@ def media_List(plugin, url):
 
     def create_item(name, video_url):
         item = Listitem()
-        item.label = "{}: {}".format(tools.getString(30011),name)
+        item.label = "{}: {}".format(STR(30011),name)
         id = video_url.replace("https://www.youtube.com/embed/", "")
         img = "https://img.youtube.com/vi/{}/sddefault.jpg".format(id)
         item.art["thumb"] = img
@@ -152,11 +166,13 @@ def media_List(plugin, url):
                 name_constructor = [name.capitalize() for name in name_original]
                 name = ' '.join(name_constructor)
                 gallery = resp.url.replace('https://hustlepress.co.jp/','').replace('/','')
-                image = tools.downloadFile(name,gallery,img_url)
+                img_response = urlquick.get(img_url)
+                img_content = img_response.content
+                image = tools.downloadFile(name,gallery,img_content)
 
                 item = Listitem()
                 label = name.replace('.jpg','').replace('.gif','').replace('.png','')
-                item.label = "{}: {}".format(tools.getString(30012),label)
+                item.label = "{}: {}".format(STR(30012),label)
                 album = image.replace(name,'')
                 pic = image
                 url = img_url

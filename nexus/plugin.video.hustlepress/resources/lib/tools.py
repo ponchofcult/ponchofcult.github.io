@@ -5,38 +5,51 @@ import xbmcgui
 from . import logger
 import shutil
 import os
-import urlquick
+import re
+
 
 def getString(stringID):
     string = xbmcaddon.Addon().getLocalizedString(stringID)
     return string
 
 
-def getSetting(settingName):
-    setting=xbmcaddon.Addon().getSetting(settingName)
+def getSetting(settingName,addonID=""):
+    setting = xbmcaddon.Addon(addonID).getSetting(settingName)
     return setting
 
 
-def downloadFile(file_name,subdirectory_name,file_url):
-    name = file_name
-    url = urlquick.get(file_url)
-    route = "special://home/temp"
-    profile = xbmcvfs.translatePath(route)
-    addon = xbmcaddon.Addon().getAddonInfo('name').lower().replace(' ','')
-    directory = addon
-    archive = subdirectory_name
-    path = xbmcvfs.translatePath(os.path.join(profile, directory, archive))
+def setSetting(setting_name,setting_value,addon_id=""):
+    if type(setting_value) == "int":
+        xbmcaddon.Addon(addon_id).setSettingInt(setting_name,setting_value)
+    elif type(setting_value) == "bool":
+        xbmcaddon.Addon(addon_id).setSettingBool(setting_name,setting_value)
+    elif type(setting_value) == "float":
+        xbmcaddon.Addon(addon_id).setSettingNumber(setting_name,setting_value)
+    elif type(setting_value) == "str":
+        xbmcaddon.Addon(addon_id).setSetting(setting_name,setting_value)
+    else:
+        xbmcaddon.Addon(addon_id).setSetting(setting_name,str(setting_value))
+    logger.debug(getSetting(setting_name,addon_id))
+
+
+def downloadFile(file_name,subdirectory_name,file_content):
+    file_name = file_name.replace('&', '_and_')
+    name = re.sub("[^A-Za-z0-9\-_\s.()]", "", file_name)
+    route = xbmcvfs.translatePath("special://home/temp")
+    directory = xbmcaddon.Addon().getAddonInfo('name').lower().replace(' ','_')
+    archive = subdirectory_name.strip().replace(' ','_')
+    path = xbmcvfs.translatePath(os.path.join(route, directory, archive))
     try:
         xbmcvfs.mkdirs(path)
-        logger.debug("Directory '%s' created" %directory)
+        logger.debug("Directory {} created".format(directory))
     except OSError as error:
         logger.debug(error)
-    file_path = xbmcvfs.translatePath("{}/{}/{}/{}".format(profile, directory, archive, name))
-    file = open(file_path, 'wb')
-    file.write(url.content)
-    file.close()
-    file = file_path
-    return file
+    file_path = xbmcvfs.translatePath(os.path.join(route, directory, archive, name))
+    with open(file_path, 'wb') as file:
+        file.write(file_content)
+        file.close()
+        file = file_path
+        return file
 
 
 def setFont():
