@@ -22,11 +22,11 @@ import datetime
 from xml.dom import minidom
 
 try:
-    from ConfigParser import SafeConfigParser
+    from ConfigParser import ConfigParser as SafeConfigParser
 except ImportError:
-    from configparser import SafeConfigParser
+    from configparser import ConfigParser as SafeConfigParser
 
-__version__ = '1.2.1'
+__version__ = '2.0.0'
 
 # Load the configuration:
 config = SafeConfigParser()
