@@ -11,9 +11,6 @@ from . import logger #logger.debug(FUNCION O VARIABLE A DEBUGUEAR)
 from . import tools
 import resolveurl
 import xbmc
-import xbmcvfs
-import os
-import json
 from time import sleep as wait
 
 
@@ -23,16 +20,21 @@ SS = tools.setSetting
 
 tools.setFont()
 
-video_resolutions = ["240p", "360p", "480p", "720p(HD)", "1080p(FHD)", "1440p(QHD)", "2160p(4K)", "4320p(8K)", "Auto"]
+video_resolutions = ["240p", "360p", "480p", "720p(HD)", "1080p(FHD)", "2160p(4K)"]
+inpustream_dict = {"Auto":"auto","240p":"480p","360p":"480p","480p":"480","720p(HD)":"720p","1080p(FHD)":"1080p","2160p(4K)":"4K"}
 resolution_selected = GS("video_resolution")
-video_resolution = video_resolutions.index(resolution_selected)
 youtube_selected = GS("kodion.mpd.quality.selection","plugin.video.youtube")
 inputstream_selected = GS("adaptivestream.res.max","inputstream.adaptive")
 
+if not resolution_selected == "Auto":
+    video_resolution = video_resolutions.index(resolution_selected)
+else:
+    video_resolution = youtube_selected
+
 SS("kodion.video.quality", 4, "plugin.video.youtube")
 SS("kodion.video.quality.mpd", True, "plugin.video.youtube")
-if youtube_selected == 4:
-    SS("kodion.mpd.quality.selection", video_resolution, "plugin.video.youtube")
+SS("kodion.mpd.quality.selection", video_resolution, "plugin.video.youtube")
+SS("adaptivestream.res.max", inpustream_dict[resolution_selected], "inputstream.adaptive")
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
@@ -284,22 +286,19 @@ def enter_AlbumPopSZT2019(plugin, url):
 @Resolver.register
 def play_Video(plugin, url):    
     if not "https://player.vimeo.com/video/" in url:
-        url = url
         resolved = resolveurl.resolve(url)
-        logger.debug(resolved)
         return resolved
     else:
         id = url.split('video/')[1].split('?')[0]
-        url = "{}$${}".format(url.split('?')[0],headers["Referer"])
-        resolved = resolveurl.resolve(url)
-        
-        properties = {"inputstream" : "inputstream.adaptive","inputstream.adaptive.manifest_type" : "hls"}
-        item = {"callback": resolved, "label": f"Vimeo ID: {id}", "properties": properties}
-        listitem = Listitem.from_dict(**item)
-        return listitem
-
-
-
+        resolved = resolveurl.resolve("{}$${}".format(url.split('?')[0],headers["Referer"]))
+        num_res = resolved.split('/video/')[1].split('/audio/')[0].split(',')
     
-    
-   
+        if len(num_res) >= 6 and resolution_selected == "2160p(4K)":
+            return resolved
+        elif len(num_res) == 5 and resolution_selected ==  "1080p(FHD)":
+            return resolved
+        else:
+            properties = {"inputstream" : "inputstream.adaptive","inputstream.adaptive.manifest_type" : "hls"}
+            item = {"callback": resolved, "label": f"Vimeo ID: {id}", "properties": properties}
+            vimeo_video = Listitem.from_dict(**item)
+            return vimeo_video
